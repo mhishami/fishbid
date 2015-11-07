@@ -1,0 +1,10 @@
+ebin/*
+deps/*
+_rel
+rel
+relx
+relx.config
+.erlang.mk/
+fishbid.d
+.fishbid.plt
+logs

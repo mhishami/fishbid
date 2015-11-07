@@ -1,0 +1,12 @@
+{% extends "home.dtl" %}
+
+{% block content %}
+
+      <div class="jumbotron">
+        <h1>Oppss!</h1>
+        <p class="lead">Something went wrong!</p>
+        <h4>{{ error }}</h4>
+        <p><a class="btn btn-lg btn-success" href="/" role="button">Home</a></p>
+      </div>
+  
+{% endblock %}

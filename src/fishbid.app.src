@@ -1,0 +1,36 @@
+{application, fishbid, [
+    {description, ""},
+    {vsn, "0.1.0"},
+    {modules, []},
+    {registered, [fishbid_sup]},
+    {applications, [
+                kernel,
+                stdlib,
+                crypto,
+                mnesia,
+                tuah,
+                sync,
+                cowboy,
+                erlydtl,
+                jsx,
+                lager,
+                cowlib,
+                ranch,
+                bson,
+                pbkdf2,
+                mongodb
+    ]},
+    {mod, {fishbid_app, []}},
+    {env, [
+        {http, [{port, 8080}]},
+        {pools, [
+            {fishbid, [
+            {size, 10},
+            {max_overflow, 30}
+        ], [
+            {database, <<"fishbid">>},
+            {w_mode, safe}
+            ]}
+        ]}
+    ]}
+]}.
