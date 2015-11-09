@@ -101,6 +101,7 @@
                     </a>
                     <ul>
                         <li><a href="/admin/user">Users</a></li>
+                        <li><a href="/admin/prices">Prices</a></li>
                         <li><a href="/admin/invoice">Invoices</a></li>
                     </ul>
                 </li>

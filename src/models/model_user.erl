@@ -8,7 +8,7 @@
 -export ([reset_password/1]).
 -export ([ensure_index/0]).
 
-% -spec new(binary(), binary(), binary(), binary()) -> map().
+-spec new(binary(), binary(), binary(), binary()) -> map().
 new(Username, Email, Role, Password) when is_binary(Username),
                                           is_binary(Email),
                                           is_binary(Role),
@@ -22,15 +22,15 @@ new(Username, Email, Role, Password) when is_binary(Username),
        <<"created_at">> => erlang:timestamp(),
        <<"updated_at">> => erlang:timestamp()}.
 
-% -spec save(map()) -> {ok, any()}.
+-spec save(map()) -> {ok, any()}.
 save(User) ->
     mongo_worker:save(?DB_USERS, User).
 
-% -spec update(map()) -> {ok, any()}.
+-spec update(map()) -> {ok, any()}.
 update(User) ->
     mongo_worker:update(?DB_USERS, User#{ <<"updated_at">> := erlang:timestamp()}).
 
-% -spec authenticate(binary(), binary()) -> ok | error.
+-spec authenticate(binary(), binary()) -> ok | error.
 authenticate(Username, Password) when is_binary(Username),
                                       is_binary(Password) ->
     case mongo_worker:find_one(?DB_USERS, {<<"username">>, Username}) of
@@ -47,11 +47,11 @@ authenticate(Username, Password) when is_binary(Username),
             error
     end.
 
-% -spec reset_password(binary()) -> ok.
+-spec reset_password(binary()) -> ok.
 reset_password(_Email) ->
     ok.
 
-% -spec ensure_index() -> {ok, any()}.
+-spec ensure_index() -> {ok, any()}.
 ensure_index() ->
     mongo_worker:ensure_index(?DB_USERS, #{<<"key">> => #{<<"username">> => 1},
                                            <<"unique">> => true,

@@ -33,7 +33,7 @@ handle_request(<<"POST">>, <<"login">> = Action, _Args, Params, _Req) ->
                     session_worker:set_cookies(Sid, Username),
 
                     %% redirect, assuming "main" is defined.
-                    {redirect, <<"/secret">>, {cookie, <<"auth">>, Username}}
+                    {redirect, <<"/">>, {cookie, <<"auth">>, Username}}
             end
     end;
 
