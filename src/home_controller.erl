@@ -6,11 +6,18 @@
 
 -include ("fishbid.hrl").
 
-before_filter(_SessionId) ->
-    {ok, proceed}.
+before_filter(SessionId) ->
+    %% do some checking
+    Sid = session_worker:get_cookies(SessionId),
+    case Sid of
+        {error, undefined} ->
+            {redirect, <<"/auth/login">>};
+        _ ->
+            {ok, proceed}
+    end.
 
 handle_request(<<"GET">>, _Action, _Args, Params, _Req) ->
     Username = maps:get(<<"auth">>, Params),
-    {render, <<"public">>, [{user, Username}, {menu_home, <<"active">>}]}.
+    {render, <<"home">>, [{user, Username}]}.
 
 

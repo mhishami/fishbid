@@ -8,3 +8,4 @@ relx.config
 fishbid.d
 .fishbid.plt
 logs
+.DS_Store

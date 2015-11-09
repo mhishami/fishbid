@@ -1,0 +1,165 @@
+<!doctype html>
+<!--[if lte IE 9]> <html class="lte-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Remove Tap Highlight on Windows Phone IE -->
+    <meta name="msapplication-tap-highlight" content="no"/>
+
+    <link rel="icon" type="image/png" href="/static/admin/assets/img/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/static/admin/assets/img/favicon-32x32.png" sizes="32x32">
+
+    <title>Fishbid</title>
+
+    <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500' rel='stylesheet' type='text/css'>
+
+    <!-- uikit -->
+    <link rel="stylesheet" href="/static/admin/bower_components/uikit/css/uikit.almost-flat.min.css"/>
+
+    <!-- altair admin -->
+    <link rel="stylesheet" href="/static/admin/assets/css/main.min.css" media="all">
+
+    {% block css %}
+    <!-- altair admin login page -->
+    <link rel="stylesheet" href="/static/admin/assets/css/login_page.min.css" />
+    {% endblock %}
+
+</head>
+{% block body %}
+<body class=" sidebar_main_open sidebar_main_swipe">
+{% endblock %}
+
+    {% block admin %}
+    <!-- main header -->
+    <header id="header_main">
+        <div class="header_main_content">
+            <nav class="uk-navbar">
+                                
+                <!-- main sidebar switch -->
+                <a href="#" id="sidebar_main_toggle" class="sSwitch sSwitch_left">
+                    <span class="sSwitchIcon"></span>
+                </a>
+                
+                <!-- secondary sidebar switch -->
+                <a href="#" id="sidebar_secondary_toggle" class="sSwitch sSwitch_right sidebar_secondary_check">
+                    <span class="sSwitchIcon"></span>
+                </a>
+                                
+                <div class="uk-navbar-flip">
+                    <ul class="uk-navbar-nav user_actions">
+                        <li>
+                            <a href="#" id="full_screen_toggle" class="user_action_icon uk-visible-large"><i class="material-icons md-24 md-light">&#xE5D0;</i></a>
+                        </li>
+                        <li>
+                            <a href="#" id="main_search_btn" class="user_action_icon"><i class="material-icons md-24 md-light">&#xE8B6;</i></a>
+                        </li>
+                        <li data-uk-dropdown="{mode:'click'}">
+                            <a href="#" class="user_action_image"><img class="md-user-image" src="/static/admin/assets/img/avatars/avatar_11_tn.png" alt=""/></a>
+                            <div class="uk-dropdown uk-dropdown-small uk-dropdown-flip">
+                                <ul class="uk-nav js-uk-prevent">
+                                    <li><a href="/settings/profile">My profile</a></li>
+                                    <li><a href="/auth/logout">Logout</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <div class="header_main_search_form">
+            <i class="md-icon header_main_search_close material-icons">&#xE5CD;</i>
+            <form class="uk-form">
+                <input type="text" class="header_main_search_input" />
+                <button class="header_main_search_btn uk-button-link"><i class="md-icon material-icons">&#xE8B6;</i></button>
+            </form>
+        </div>
+    </header><!-- main header end -->
+    <!-- main sidebar -->
+    <aside id="sidebar_main">
+        
+        <div class="sidebar_main_header">
+            <div class="sidebar_logo">
+                <a href="/" class="sSidebar_hide"><img src="/static/admin/assets/img/logo_main.png" alt="" height="30" width="176"/></a>
+                <a href="/" class="sSidebar_show"><img src="/static/admin/assets/img/logo_main_small.png" alt="" height="32" width="32"/></a>
+            </div>
+        </div>
+        
+        <div class="menu_section">
+            <ul>
+                <li title="Dashboard">
+                    <a href="/admin/dashboard">
+                        <span class="menu_icon"><i class="material-icons">&#xE871;</i></span>
+                        <span class="menu_title">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="menu_icon"><i class="material-icons">&#xE7EE;</i></span>
+                        <span class="menu_title">Admin</span>
+                    </a>
+                    <ul>
+                        <li><a href="/admin/user">Users</a></li>
+                        <li><a href="/admin/invoice">Invoices</a></li>
+                    </ul>
+                </li>
+                <li title="Prices">
+                    <a href="/prices">
+                        <span class="menu_icon"><i class="material-icons">&#xE54E;</i></span>
+                        <span class="menu_title">Market Prices</span>
+                    </a>
+                </li>
+                <li title="Offers">
+                    <a href="/offer">
+                        <span class="menu_icon"><i class="material-icons">&#xE53E;</i></span>
+                        <span class="menu_title">Market Offers</span>
+                    </a>
+                </li>
+                <li  title="Offer">
+                    <a href="/offer/made">
+                        <span class="menu_icon"><i class="material-icons">&#xE0B9;</i></span>
+                        <span class="menu_title">Your Offers</span>
+                    </a>
+                </li>
+                <li title="Bids">
+                    <a href="/bid/made">
+                        <span class="menu_icon"><i class="material-icons">&#xE85C;</i></span>
+                        <span class="menu_title">Your Bids</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </aside><!-- main sidebar end -->    
+    {% endblock %}
+
+    {% block content %}
+    <div id="page_content">
+        <div id="page_content_inner">
+
+            <h3 class="heading_b uk-margin-bottom">Blank Page</h3>
+
+            <div class="md-card">
+                <div class="md-card-content">
+                    <div class="uk-grid" data-uk-grid-margin>
+                        <div class="uk-width-1-1">
+                            Impedit et modi amet nemo quia modi enim ut ullam qui et dolore consequuntur repellat sunt sed adipisci voluptas sed id adipisci et deserunt illum velit odit dolore id architecto laborum ipsum eos minus eaque nesciunt quisquam aut est quo numquam dolor ullam eius illo asperiores iste doloribus eos necessitatibus cupiditate exercitationem neque ducimus optio expedita incidunt aut consequatur est voluptate fuga quia corporis delectus explicabo debitis qui ab doloremque sapiente repellendus velit id aut voluptas ea voluptatem officiis voluptatem dolores eum sit et maiores ea ipsum sed placeat omnis ducimus ipsa tempore et sed ullam eligendi est fugit quam temporibus ipsa suscipit et mollitia occaecati animi quod explicabo qui voluptatem placeat culpa atque odio expedita atque eum ea quisquam eos sit voluptatibus ducimus est explicabo est.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    {% endblock %}  
+    <!-- common functions -->
+    <script src="/static/admin/assets/js/common.min.js"></script>
+    <!-- uikit functions -->
+    <script src="/static/admin/assets/js/uikit_custom.min.js"></script>    
+    <!-- altair core functions -->
+    <script src="/static/admin/assets/js/altair_admin_common.min.js"></script>
+    {% block js %}
+    {% endblock %}
+
+</body>
+</html>

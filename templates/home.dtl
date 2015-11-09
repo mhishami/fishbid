@@ -1,93 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="/static/favicon.ico">
+{% extends "base.dtl" %}
 
-    <title>Baz</title>
+{% block content %}
+    <div id="page_content">
+        <div id="page_content_inner">
 
-    <!-- Bootstrap core CSS -->
-    <link href="/static/dist/css/bootstrap.min.css" rel="stylesheet">
+            <h3 class="heading_b uk-margin-bottom">Blank Page</h3>
 
-    <!-- Custom styles for this template -->
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link href="/static/css/style.css" rel="stylesheet">
+            <div class="md-card">
+                <div class="md-card-content">
+                    <div class="uk-grid" data-uk-grid-margin>
+                        <div class="uk-width-1-1">
+                            Impedit et modi amet nemo quia modi enim ut ullam qui et dolore consequuntur repellat sunt sed adipisci voluptas sed id adipisci et deserunt illum velit odit dolore id architecto laborum ipsum eos minus eaque nesciunt quisquam aut est quo numquam dolor ullam eius illo asperiores iste doloribus eos necessitatibus cupiditate exercitationem neque ducimus optio expedita incidunt aut consequatur est voluptate fuga quia corporis delectus explicabo debitis qui ab doloremque sapiente repellendus velit id aut voluptas ea voluptatem officiis voluptatem dolores eum sit et maiores ea ipsum sed placeat omnis ducimus ipsa tempore et sed ullam eligendi est fugit quam temporibus ipsa suscipit et mollitia occaecati animi quod explicabo qui voluptatem placeat culpa atque odio expedita atque eum ea quisquam eos sit voluptatibus ducimus est explicabo est.                        </div>
+                    </div>
+                </div>
+            </div>
 
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="/static/assets/assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="/static/assets/js/ie-emulation-modes-warning.js"></script>
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
-
-  <body>
-
-    <div class="container">
-      <div class="header clearfix">
-        <nav>
-          <ul class="nav nav-pills pull-right">
-            <li role="presentation" class="{{ menu_home }}"><a href="/">Home</a></li>
-            {% if user %}
-            <li role="presentation" class="{{ menu_secret }}"><a href="/secret">Secret</a></li>
-            <li role="presentation"><a href="/some/error/page">Error</a></li>
-            <li role="presentation"><a href="/auth/logout">({{ user }}) Logout</a></li>
-            {% else %}
-            <li role="presentation" class="{{ menu_reg }}"><a href="/auth/register">Register</a></li>
-            <li role="presentation" class="{{ menu_login }}"><a href="/auth/login">Login</a></li>
-            {% endif %}
-          </ul>
-        </nav>
-        <h3 class="text-muted"><a href="/"><img src="/static/img/tuah-small.png"></a></h3>
-      </div>
-
-      {% block content %}
-      <div class="jumbotron">
-        <h1>Jumbotron heading</h1>
-        <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-      </div>
-
-      <div class="row marketing">
-        <div class="col-lg-6">
-          <h4>Subheading</h4>
-          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-          <h4>Subheading</h4>
-          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-          <h4>Subheading</h4>
-          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
         </div>
-
-        <div class="col-lg-6">
-          <h4>Subheading</h4>
-          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-          <h4>Subheading</h4>
-          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-          <h4>Subheading</h4>
-          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-        </div>
-      </div>
-      {% endblock %}
-
-      <footer class="footer">
-        <p>&copy; Company 2015</p>
-      </footer>
-
-    </div> <!-- /container -->
-
-
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="/static/assets/assets/js/ie10-viewport-bug-workaround.js"></script>
-  </body>
-</html>
+    </div>
+{% endblock %}
