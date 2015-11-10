@@ -66,6 +66,7 @@ ensure_index() ->
                                             <<"unique">> => true,
                                             <<"dropDups">> => true}).
 
+-spec price(any) -> float().
 price(Price) when is_binary(Price) ->
     Comp = binary:split(Price, <<".">>),
     case length(Comp) of
