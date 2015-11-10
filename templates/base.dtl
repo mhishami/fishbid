@@ -8,6 +8,10 @@
   <!-- Remove Tap Highlight on Windows Phone IE -->
   <meta name="msapplication-tap-highlight" content="no"/>
 
+  <meta http-equiv="Expires" content="Tue, 01 Jan 1980 1:00:00 GMT">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">  
+
   <link rel="icon" type="image/png" href="/static/admin/assets/img/favicon-16x16.png" sizes="16x16">
   <link rel="icon" type="image/png" href="/static/admin/assets/img/favicon-32x32.png" sizes="32x32">
 
@@ -100,9 +104,9 @@
             <span class="menu_title">Admin</span>
           </a>
           <ul>
-            <li><a href="/admin/user">Users</a></li>
+            <li><a href="/admin/users">Users</a></li>
             <li><a href="/admin/prices">Prices</a></li>
-            <li><a href="/admin/invoice">Invoices</a></li>
+            <li><a href="/admin/invoices">Invoices</a></li>
           </ul>
         </li>
         <li title="Prices">
