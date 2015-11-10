@@ -36,7 +36,33 @@ handle_request(<<"POST">>, <<"prices">> = Action, [], Params, _Req) ->
                 {user, User}, 
                 {error, << <<"Item '">>/binary, Name/binary, <<"' already exists!">>/binary >>}, 
                 {fishes, model_fish:get_all()}]}
-    end.
+    end;
+
+handle_request(<<"GET">>, <<"prices">> = Action, [<<"edit">>, Id], Params, _Req) ->
+    User = maps:get(<<"auth">>, Params),
+    {render, Action, [{user, User}, 
+                      {fish, model_fish:get(Id)}, 
+                      {fishes, model_fish:get_all()}]};
+
+handle_request(<<"POST">>, <<"prices">> = Action, [<<"edit">>], Params, _Req) ->
+    User = maps:get(<<"auth">>, Params),
+    PostVals = maps:get(<<"qs_body">>, Params),
+    Id = proplists:get_value(<<"_id">>, PostVals),
+    Name = proplists:get_value(<<"name">>, PostVals),
+    Grade = proplists:get_value(<<"grade">>, PostVals),
+    Price = proplists:get_value(<<"price">>, PostVals),
+
+    model_fish:update(Id, Name, Grade, Price, User),
+    {render, Action, [{user, User}, {fishes, model_fish:get_all()}]};
+
+handle_request(<<"GET">>, <<"prices">> = Action, [<<"delete">>, Id], Params, _Req) ->
+    User = maps:get(<<"auth">>, Params),
+    model_fish:delete(Id),
+    {render, Action, [{user, User}, {fishes, model_fish:get_all()}]}.
+    
+
+
+
 
 
 

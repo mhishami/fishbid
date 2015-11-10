@@ -1,20 +1,20 @@
 {% extends "base.dtl" %}
 
 {% block content %}
-    <div id="page_content">
-        <div id="page_content_inner">
+  <div id="page_content">
+    <div id="page_content_inner">
 
-            <h3 class="heading_b uk-margin-bottom">Blank Page</h3>
+      <h3 class="heading_b uk-margin-bottom">Blank Page</h3>
 
-            <div class="md-card">
-                <div class="md-card-content">
-                    <div class="uk-grid" data-uk-grid-margin>
-                        <div class="uk-width-1-1">
-                            Impedit et modi amet nemo quia modi enim ut ullam qui et dolore consequuntur repellat sunt sed adipisci voluptas sed id adipisci et deserunt illum velit odit dolore id architecto laborum ipsum eos minus eaque nesciunt quisquam aut est quo numquam dolor ullam eius illo asperiores iste doloribus eos necessitatibus cupiditate exercitationem neque ducimus optio expedita incidunt aut consequatur est voluptate fuga quia corporis delectus explicabo debitis qui ab doloremque sapiente repellendus velit id aut voluptas ea voluptatem officiis voluptatem dolores eum sit et maiores ea ipsum sed placeat omnis ducimus ipsa tempore et sed ullam eligendi est fugit quam temporibus ipsa suscipit et mollitia occaecati animi quod explicabo qui voluptatem placeat culpa atque odio expedita atque eum ea quisquam eos sit voluptatibus ducimus est explicabo est.                        </div>
-                    </div>
-                </div>
-            </div>
-
+      <div class="md-card">
+        <div class="md-card-content">
+          <div class="uk-grid" data-uk-grid-margin>
+            <div class="uk-width-1-1">
+              Impedit et modi amet nemo quia modi enim ut ullam qui et dolore consequuntur repellat sunt sed adipisci voluptas sed id adipisci et deserunt illum velit odit dolore id architecto laborum ipsum eos minus eaque nesciunt quisquam aut est quo numquam dolor ullam eius illo asperiores iste doloribus eos necessitatibus cupiditate exercitationem neque ducimus optio expedita incidunt aut consequatur est voluptate fuga quia corporis delectus explicabo debitis qui ab doloremque sapiente repellendus velit id aut voluptas ea voluptatem officiis voluptatem dolores eum sit et maiores ea ipsum sed placeat omnis ducimus ipsa tempore et sed ullam eligendi est fugit quam temporibus ipsa suscipit et mollitia occaecati animi quod explicabo qui voluptatem placeat culpa atque odio expedita atque eum ea quisquam eos sit voluptatibus ducimus est explicabo est.                        </div>
+          </div>
         </div>
+      </div>
+
     </div>
+  </div>
 {% endblock %}

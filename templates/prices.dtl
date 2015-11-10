@@ -1,85 +1,107 @@
 {% extends "base.dtl" %}
 
-{% block content %}
-    <div id="page_content">
-        <div id="page_content_inner">
-            <div class="md-card">
-                <div class="md-card-content">
-                    <h3 class="heading_a">Add Fish Price</h3>
-                    {% if error %}
-                    <div class="uk-alert uk-alert-info" data-uk-alert>
-                        <a href="#" class="uk-alert-close uk-close"></a>
-                        {{ error }}
-                    </div>
-                    {% endif %}                    
-                    <form method="post" action="/admin/prices">
-                        <div class="uk-grid" data-uk-grid-margin>
-                            <div class="uk-width-large-1-4 uk-width-medium-1-2">
-                                <div class="uk-input-group">
-                                    <label>Name</label>
-                                    <input type="text" name="name" class="md-input" />
-                                </div>
-                            </div>
-                            <div class="uk-width-large-1-4 uk-width-medium-1-2">
-                                <select name="grade" data-md-selectize>
-                                    <option value="A">Grade A</option>
-                                    <option value="B">Grade B</option>
-                                    <option value="C">Grade C</option>
-                                </select>
-                            </div>
-                            <div class="uk-width-large-1-4 uk-width-medium-1-2">
-                                <div class="uk-input-group">
-                                    <span class="uk-input-group-addon">RM</span>
-                                    <label>Price</label>
-                                    <input type="text" name="price" class="md-input" />
-                                </div>
-                            </div>
-                            <div class="uk-width-large-1-4 uk-width-medium-1-2">
-                                <button type="submit" class="md-btn md-btn-primary md-btn-block">Add</button>
-                            </div>
-                        </div>
-                    </form>
+  {% block content %}
+  <div id="page_content">
+    <div id="page_content_inner">
+      <div class="md-card">
+        <div class="md-card-content">
+          {% if fish %}
+          <h3 class="heading_a">Update Fish Price</h3>
+          <br>
+          {% else %}
+          <h3 class="heading_a">Add Fish Price</h3>
+          <br>
+          {% endif %}
+          {% if error %}
+          <div class="uk-alert uk-alert-info" data-uk-alert>
+            <a href="#" class="uk-alert-close uk-close"></a>
+            {{ error }}
+          </div>
+          {% endif %}          
+          {% if fish %}          
+          <form method="post" action="/admin/prices/edit">
+            <input type="hidden" name="_id" value="{{ fish._id }}">
+          {% else %}
+          <form method="post" action="/admin/prices">
+          {% endif %}
+            <div class="uk-grid" data-uk-grid-margin>
+              <div class="uk-width-large-1-4 uk-width-medium-1-2">
+                <div class="uk-input-group">
+                  <label>Name</label>
+                  <input type="text" name="name" class="md-input" value="{{ fish.name }}"/>
                 </div>
-            </div>
-
-            {% if fishes %}
-            <div class="md-card uk-margin-medium-bottom">
-                <div class="md-card-content">
-                    <div class="uk-overflow-container">
-                        <h3 class="heading_a uk-margin-bottom">Fish Prices</h3>
-                        <table class="uk-table uk-table-nowrap">
-                            <thead>
-                                <tr>
-                                    <th class="uk-width-1-10 uk-text-center">#</th>
-                                    <th class="uk-width-2-10">Name</th>
-                                    <th class="uk-width-2-10 uk-text-center">Grade</th>
-                                    <th class="uk-width-2-10 uk-text-right">Price (RM)</th>
-                                    <th class="uk-width-2-10 uk-text-center">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for i in fishes %}
-                                <tr>
-                                    <td class="uk-width-1-10 uk-text-center">{{ forloop.counter }}</td>
-                                    <td class="uk-width-2-10">{{ i.name }}</td>
-                                    <td class="uk-width-2-10 uk-text-center">{{ i.grade }}</td>
-                                    <td class="uk-width-2-10 uk-text-right">{{ i.price|floatformat:2}}</td>
-                                    <td class="uk-text-center">
-                                        <a href="#"><i class="md-icon material-icons">&#xE254;</i></a>
-                                        <a href="#"><i class="md-icon material-icons">&#xE872;</i></a>
-                                    </td>
-                                
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
+              </div>
+              <div class="uk-width-large-1-4 uk-width-medium-1-2">
+                <select id="grade" name="grade" data-md-selectize>
+                  <option value="A">Grade A</option>
+                  <option value="B">Grade B</option>
+                  <option value="C">Grade C</option>
+                </select>
+              </div>
+              <div class="uk-width-large-1-4 uk-width-medium-1-2">
+                <div class="uk-input-group">
+                  <span class="uk-input-group-addon">RM</span>
+                  <label>Price</label>
+                  <input type="text" name="price" class="md-input" value="{{ fish.price|floatformat:2 }}"/>
                 </div>
+              </div>
+              <div class="uk-width-large-1-4 uk-width-medium-1-2">
+                {% if fish %}
+                <button type="submit" class="md-btn md-btn-primary md-btn-block">Update</button>
+                {% else %}
+                <button type="submit" class="md-btn md-btn-primary md-btn-block">Add</button>
+                {% endif %}
+              </div>
             </div>
-            {% endif %}
+          </form>
         </div>
-    </div>    
+      </div>
 
+      {% if fishes %}
+      <div class="md-card uk-margin-medium-bottom">
+        <div class="md-card-content">
+          <div class="uk-overflow-container">
+            <h3 class="heading_a uk-margin-bottom">Fish Prices</h3>
+            <table class="uk-table uk-table-nowrap">
+              <thead>
+                <tr>
+                  <th class="uk-width-1-10 uk-text-center">#</th>
+                  <th class="uk-width-2-10">Name</th>
+                  <th class="uk-width-2-10 uk-text-center">Grade</th>
+                  <th class="uk-width-2-10 uk-text-right">Price (RM)</th>
+                  <th class="uk-width-2-10 uk-text-center">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for i in fishes %}
+                <tr>
+                  <td class="uk-width-1-10 uk-text-center">{{ forloop.counter }}</td>
+                  <td class="uk-width-2-10">{{ i.name }}</td>
+                  <td class="uk-width-2-10 uk-text-center">{{ i.grade }}</td>
+                  <td class="uk-width-2-10 uk-text-right">{{ i.price|floatformat:2}}</td>
+                  <td class="uk-text-center">
+                    <a href="/admin/prices/edit/{{ i._id }}"><i class="md-icon material-icons">&#xE254;</i></a>
+                    <a href="/admin/prices/delete/{{ i._id }}"><i class="md-icon material-icons">&#xE872;</i></a>
+                  </td>               
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>    
+  {% endblock %}
 
+  {% block js %}
 
-{% endblock %}
+    <script type="text/javascript">
+      $(function() {
+        var $select = $('#grade').selectize();
+        $select[0].selectize.setValue('{{ fish.grade }}');
+      });
+    </script>
+
+  {% endblock %}
