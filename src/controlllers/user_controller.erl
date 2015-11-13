@@ -24,6 +24,7 @@ handle_request(<<"GET">>, <<"edit">>, [UserId], Params, _Req) ->
 handle_request(<<"POST">>, <<"update">>, _Args, Params, _Req) ->
     User = maps:get(<<"auth">>, Params),
     PostVals = maps:get(<<"qs_body">>, Params),
+    ?DEBUG("Params= ~p~n", [Params]),
 
     %% get all params
     Updated = #{<<"_id">> => proplists:get_value(<<"_id">>, PostVals),

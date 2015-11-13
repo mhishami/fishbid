@@ -4,7 +4,7 @@
 
   <div id="page_content">
     <div id="page_content_inner">
-      <form method="post" action="/user/update" class="uk-form-stacked" id="form_validation">
+      <form method="post" enctype="multipart/form-data" action="/user/update" class="uk-form-stacked" id="form_validation">
         <div class="uk-grid" data-uk-grid-margin>
           <div class="uk-width-large-7-10">
             <div class="md-card">
@@ -18,7 +18,7 @@
                     <span class="btn-file">
                       <span class="fileinput-new"><i class="material-icons">&#xE2C6;</i></span>
                       <span class="fileinput-exists"><i class="material-icons">&#xE86A;</i></span>
-                      <input type="file" name="user_edit_avatar_control" id="user_edit_avatar_control">
+                      <input type="file" name="avatar" id="avatar">
                     </span>
                     <a href="#" class="btn-file fileinput-exists" data-dismiss="fileinput"><i class="material-icons">&#xE5CD;</i></a>
                   </div>
@@ -133,8 +133,7 @@
                 <hr class="md-hr">
                 <div class="uk-form-row">
                   <label class="uk-form-label" for="role">User Role</label>
-                  <select id="role" name="role" data-md-selectize>
-                    <option value="">Select...</option>
+                  <select id="role" name="role" placeholder="Role..." data-md-selectize>
                     <option value="buyer">Buyer</option>
                     <option value="seller">Seller</option>
                     <option value="admin">Admin</option>
@@ -165,6 +164,10 @@
 
   <!--  forms validation functions -->
   <script src="/static/admin/assets/js/pages/forms_validation.min.js"></script>
+  <!-- file input -->
+  <script src="/static/admin/assets/js/custom/uikit_fileinput.min.js"></script>
+  <!--  user edit functions -->
+  <script src="/static/admin/assets/js/pages/page_user_edit.min.js"></script>
 
   <script type="text/javascript">
     $(function() {
