@@ -33,7 +33,8 @@
     <div class="uk-width-8-10 uk-container-center">
       <p class="heading_b">Ouchh!</p>
       <p class="uk-text-large">
-        The request hit a bump! <span class="uk-text-muted">{{ error }}</span>.
+        The request hit a bump! <br/><br/>
+        <span class="uk-text-muted">{{ error }}</span>.
       </p>
       <a href="#" onclick="history.go(-1);return false;">Go back to previous page</a>
     </div>

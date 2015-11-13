@@ -13,18 +13,18 @@
           <div class="user_avatar"></div>
         </div>
         <h2 class="heading_a uk-margin-medium-bottom">Sign In</h2>
-        <form method="post" action="/auth/login">
+        <form id="form_validation" method="post" action="/auth/login">
           {% if error %}
           <div class="uk-alert uk-alert-warning" data-uk-alert>
             <a href="#" class="uk-alert-close uk-close"></a>
             {{ error }}
           </div>
           {% endif %}
-          <div class="uk-form-row">
+          <div class="parsely-row">
             <label for="username">Username</label>
             <input type="text" id="username" name="username" required class="md-input" value="hisham" />
           </div>
-          <div class="uk-form-row">
+          <div class="parsely-row">
             <label for="password">Password</label>
             <input type="password" id="password" name="password" required class="md-input" value="sa" />
           </div>
@@ -46,3 +46,23 @@
     </div>
   </div>
   {% endblock %}
+
+  {% block js %}
+    <script>
+      // load parsley config (altair_admin_common.js)
+      altair_forms.parsley_validation_config();
+    </script>
+    <script src="/static/admin/bower_components/parsleyjs/dist/parsley.min.js"></script>
+
+    <!--  forms validation functions -->
+    <script src="/static/admin/assets/js/pages/forms_validation.min.js"></script>
+
+    <script type="text/javascript">
+      $(function() {
+        // var $select = $('#grade').selectize();
+        // $select[0].selectize.setValue('{{ fish.grade }}');
+      });
+    </script>
+
+  {% endblock %}
+

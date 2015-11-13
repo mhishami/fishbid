@@ -43,33 +43,31 @@ handle_request(<<"GET">>, <<"register">> = Action, _Args, _Params, _Req) ->
 handle_request(<<"POST">>, <<"register">> = Action, _Args, Params, _Req) ->
     PostVals = maps:get(<<"qs_body">>, Params),
     Username = proplists:get_value(<<"username">>, PostVals),
+    Fullname = proplists:get_value(<<"fullname">>, PostVals),
+    Email = proplists:get_value(<<"email">>, PostVals),
+    Mobile = proplists:get_value(<<"mobile">>, PostVals),
     Pass1 = proplists:get_value(<<"password1">>, PostVals),
     Pass2 = proplists:get_value(<<"password2">>, PostVals),
-    Email = proplists:get_value(<<"email">>, PostVals),
     Role = proplists:get_value(<<"role">>, PostVals),
 
-    case Username =:= <<>> orelse Pass2 =:= <<>> orelse Pass1 =:= <<>> orelse Email =:= <<>> of
+    case Pass1 =/= Pass2 of
         true ->
-            {render, Action, [{error, <<"All fields are required.">>} | PostVals]};
+            {render, Action, [{reg_error, <<"Passwords are not the same">>} | PostVals]};
         _ ->
-            case Pass1 =/= Pass2 of
-                true ->
-                    {render, Action, [{reg_error, <<"Passwords are not the same">>} | PostVals]};
+            %% ok, we can register
+            User = model_user:new(Username, Fullname, Role, Email, Mobile, Pass1, 
+                #{<<"username">> => <<"admin">>, <<"page">> => <<"register">>}),
+            case model_user:save(User) of
+                {ok, _} ->
+                    %% ok, user is not duplicates and all
+                    UserId = maps:get(<<"_id">>, User),
+                    {Debit, Credit} = {0.0, 0.0},
+                    Trx = model_trx:new(UserId, Debit, Credit, <<"done">>),
+                    model_trx:save(Trx),
+                    {redirect, <<"/auth/login">>};
                 _ ->
-                    %% ok, we can register
-                    User = model_user:new(Username, Email, Role, Pass1),
-                    case model_user:save(User) of
-                        {ok, _} ->
-                            %% ok, user is not duplicates and all
-                            UserId = maps:get(<<"_id">>, User),
-                            {Debit, Credit} = {0.0, 0.0},
-                            Trx = model_trx:new(UserId, Debit, Credit, <<"done">>),
-                            model_trx:save(Trx),
-                            {redirect, <<"/auth/login">>};
-                        _ ->
-                            %% we got duplicates
-                            {render, Action, [{error, <<"Username/Email has been taken">>}]}
-                    end
+                    %% we got duplicates
+                    {render, Action, [{error, <<"Username/Email has been taken">>}]}
             end
     end;
 

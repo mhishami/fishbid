@@ -110,25 +110,25 @@
           </ul>
         </li>
         <li title="Prices">
-          <a href="/prices">
+          <a href="/home/prices">
             <span class="menu_icon"><i class="material-icons">&#xE54E;</i></span>
             <span class="menu_title">Market Prices</span>
           </a>
         </li>
         <li title="Offers">
-          <a href="/offer">
+          <a href="/home/offers">
             <span class="menu_icon"><i class="material-icons">&#xE53E;</i></span>
             <span class="menu_title">Market Offers</span>
           </a>
         </li>
         <li  title="Offer">
-          <a href="/offer/made">
+          <a href="/user/offers">
             <span class="menu_icon"><i class="material-icons">&#xE0B9;</i></span>
             <span class="menu_title">Your Offers</span>
           </a>
         </li>
         <li title="Bids">
-          <a href="/bid/made">
+          <a href="/user/bids">
             <span class="menu_icon"><i class="material-icons">&#xE85C;</i></span>
             <span class="menu_title">Your Bids</span>
           </a>

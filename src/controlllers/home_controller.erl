@@ -16,8 +16,13 @@ before_filter(SessionId) ->
             {ok, proceed}
     end.
 
-handle_request(<<"GET">>, _Action, _Args, Params, _Req) ->
-    Username = maps:get(<<"auth">>, Params),
-    {render, <<"home">>, [{user, Username}]}.
+handle_request(<<"GET">>, <<"index">>, _Args, Params, _Req) ->
+    User = maps:get(<<"auth">>, Params),
+    {render, <<"home">>, [{user, User}]};
+
+handle_request(<<"GET">>, <<"prices">>, _Args, Params, _Req) ->
+    User = maps:get(<<"auth">>, Params),
+    {render, <<"home_prices">>, [{user, User} | model_fish:get_by_grades()]}.
+
 
 

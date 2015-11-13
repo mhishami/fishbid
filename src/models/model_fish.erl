@@ -5,6 +5,7 @@
 -export ([save/1]).
 -export ([get_all/0]).
 -export ([get/1]).
+-export ([get_by_grades/0]).
 -export ([update/5]).
 -export ([delete/1]).
 -export ([ensure_index/0]).
@@ -35,6 +36,12 @@ get_all() ->
 get(Id) ->
     {ok, Fish} = mongo_worker:find_one(?DB_FISHES, {<<"_id">>, Id}),
     Fish.
+
+get_by_grades() ->
+    {ok, A} = mongo_worker:match(?DB_FISHES, {<<"grade">>, <<"A">>}, {<<"name">>, 1}),
+    {ok, B} = mongo_worker:match(?DB_FISHES, {<<"grade">>, <<"B">>}, {<<"name">>, 1}),
+    {ok, C} = mongo_worker:match(?DB_FISHES, {<<"grade">>, <<"C">>}, {<<"name">>, 1}),
+    [{grade_a, A}, {grade_b, B}, {grade_c, C}].
 
 -spec update(binary(), binary(), binary(), binary(), binary()) -> {ok, any()}.
 update(Id, Name, Grade, Price, User) when is_binary(Id),

@@ -1,0 +1,123 @@
+{% extends "base.dtl" %}
+
+{% block content %}
+<div id="page_content">
+  <div id="page_content_inner">
+
+    <h3 class="heading_b uk-margin-bottom">Fish Prices</h3>
+    <div class="md-card-content">
+      <div class="uk-grid uk-grid-width-medium-1-3 uk-sortable sortable-handler" data-uk-grid="{gutter:24}" data-uk-sortable="" style="position: relative; margin-left: -24px; height: 886px;">
+        <div data-grid-prepared="true" style="position: absolute; box-sizing: border-box; padding-left: 24px; padding-bottom: 24px; top: 0px; left: 0px; opacity: 1;">
+          <div class="md-card">
+            <div class="md-card-toolbar">
+              <div class="md-card-toolbar-actions">
+                <i class="md-icon material-icons md-card-fullscreen-activate"></i>
+                <i class="md-icon material-icons md-card-toggle"></i>
+                <i class="md-icon material-icons md-card-close"></i>
+              </div>
+              <h3 class="md-card-toolbar-heading-text">
+                Grade A
+              </h3>
+            </div>
+            <div class="md-card-content">
+              {% for f in grade_a %}
+              <table class="uk-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ f.name }}</td>
+                    <td>RM {{ f.price|floatformat:2 }}</td>
+                  </tr>
+                </tbody>
+              </table>
+              {% empty %}
+              <p>No fish of Grade A added yet</p>              
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
+        <div data-grid-prepared="true" style="position: absolute; box-sizing: border-box; padding-left: 24px; padding-bottom: 24px; top: 0px; left: 338.65625px; opacity: 1;">
+          <div class="md-card">
+            <div class="md-card-toolbar">
+              <div class="md-card-toolbar-actions">
+                <i class="md-icon material-icons md-card-fullscreen-activate"></i>
+                <i class="md-icon material-icons md-card-toggle"></i>
+                <i class="md-icon material-icons md-card-close"></i>
+              </div>
+              <h3 class="md-card-toolbar-heading-text">
+                Grade B
+              </h3>
+            </div>
+            <div class="md-card-content">
+              {% for f in grade_b %}
+              <table class="uk-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ f.name }}</td>
+                    <td>RM {{ f.price|floatformat:2 }}</td>
+                  </tr>
+                </tbody>
+              </table>
+              {% empty %}
+              <p>No fish of Grade B added yet</p>              
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div data-grid-prepared="true" style="position: absolute; box-sizing: border-box; padding-left: 24px; padding-bottom: 24px; top: 0px; left: 338.65625px; opacity: 1;">
+          <div class="md-card">
+            <div class="md-card-toolbar">
+              <div class="md-card-toolbar-actions">
+                <i class="md-icon material-icons md-card-fullscreen-activate"></i>
+                <i class="md-icon material-icons md-card-toggle"></i>
+                <i class="md-icon material-icons md-card-close"></i>
+              </div>
+              <h3 class="md-card-toolbar-heading-text">
+                Grade C
+              </h3>
+            </div>
+            <div class="md-card-content">
+              {% for f in grade_c %}
+              <table class="uk-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ f.name }}</td>
+                    <td>RM {{ f.price|floatformat:2 }}</td>
+                  </tr>
+                </tbody>
+              </table>
+              {% empty %}
+              <p>No fish of Grade C added yet</p>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

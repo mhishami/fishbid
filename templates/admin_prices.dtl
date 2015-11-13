@@ -3,6 +3,7 @@
   {% block content %}
   <div id="page_content">
     <div id="page_content_inner">
+      {% if user.role == "Admin" %}
       <div class="md-card">
         <div class="md-card-content">
           {% if fish %}
@@ -32,7 +33,7 @@
                 </div>
               </div>
               <div class="uk-width-large-1-4 uk-width-medium-1-2">
-                <select id="grade" name="grade" data-md-selectize>
+                <select id="grade" name="grade" placeholder="Grade..." data-md-selectize>
                   <option value="A">Grade A</option>
                   <option value="B">Grade B</option>
                   <option value="C">Grade C</option>
@@ -56,6 +57,7 @@
           </form>
         </div>
       </div>
+      {% endif %}
 
       {% if fishes %}
       <div class="md-card uk-margin-medium-bottom">
@@ -69,7 +71,9 @@
                   <th class="uk-width-2-10">Name</th>
                   <th class="uk-width-2-10 uk-text-center">Grade</th>
                   <th class="uk-width-2-10 uk-text-right">Price (RM)</th>
+                  {% if user.role == "Admin" %}
                   <th class="uk-width-2-10 uk-text-center">Actions</th>
+                  {% endif %}
                 </tr>
               </thead>
               <tbody>
@@ -79,10 +83,12 @@
                   <td class="uk-width-2-10">{{ i.name }}</td>
                   <td class="uk-width-2-10 uk-text-center">{{ i.grade }}</td>
                   <td class="uk-width-2-10 uk-text-right">{{ i.price|floatformat:2}}</td>
+                  {% if user.role == "Admin" %}
                   <td class="uk-text-center">
                     <a href="/admin/prices/edit/{{ i._id }}"><i class="md-icon material-icons">&#xE254;</i></a>
                     <a href="/admin/prices/delete/{{ i._id }}"><i class="md-icon material-icons">&#xE872;</i></a>
-                  </td>               
+                  </td>         
+                  {% endif %}      
                 </tr>
                 {% endfor %}
               </tbody>

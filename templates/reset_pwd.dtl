@@ -8,16 +8,16 @@
           <div class="user_avatar"></div>
         </div>                
         <h2 class="heading_a uk-margin-large-bottom">Reset password</h2>
-        <form method="post" action="/auth/reset_pwd">
+        <form id="form_validation" method="post" action="/auth/reset_pwd">
           {% if error %}
           <div class="uk-alert uk-alert-warning" data-uk-alert>
             <a href="#" class="uk-alert-close uk-close"></a>
             {{ error }}
           </div>
           {% endif %}                    
-          <div class="uk-form-row">
+          <div class="parsely-row">
             <label for="email">Your email address</label>
-            <input class="md-input" type="text" id="email" name="email" />
+            <input class="md-input" type="text" id="email" name="email" required />
           </div>
           <div class="uk-margin-medium-top">
             <button type="submit" class="md-btn md-btn-primary md-btn-block">Reset password</button>

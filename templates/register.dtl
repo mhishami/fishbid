@@ -8,22 +8,32 @@
           <div class="user_avatar"></div>
         </div>                
         <h2 class="heading_a uk-margin-medium-bottom">Create An Account</h2>
-        <form method="post" action="/auth/register">
+        <form id="form_validation" method="post" action="/auth/register">
           {% if error %}
           <div class="uk-alert uk-alert-warning" data-uk-alert>
             <a href="#" class="uk-alert-close uk-close"></a>
             {{ error }}
           </div>
           {% endif %}
-          <div class="uk-form-row">
-            <label for="username">Username</label>
-            <input class="md-input" type="text" id="username" name="username" />
+          <div class="parsely-row">
+            <label for="username">Username <span class="req">*</span></label>
+            <input class="md-input" type="text" id="username" name="username" required />
           </div>
-          <div class="uk-form-row">
-            <label for="email">E-mail</label>
-            <input class="md-input" type="text" id="email" name="email" />
+          <div class="parsely-row">
+            <label for="fullname">Full Name <span class="req">*</span></label>
+            <input class="md-input" type="text" id="fullname" name="fullname" required />
           </div>
-          <div class="uk-form-row">
+          <div class="parsely-row">
+            <label for="email">E-mail <span class="req">*</span></label>
+            <input class="md-input" type="text" id="email" name="email" required />
+          </div>
+          <div class="parsely-row">
+            <label for="email">Mobile No. <span class="req">*</span></label>
+            <input class="md-input" type="text" id="mobile" name="mobile" required />
+          </div>
+          <div class="parsely-row">
+            <br/>
+            <label>User Type</label>
             <p>
               <input type="radio" name="role" id="type1" data-md-icheck checked value="buyer"/>
               <label for="type1" class="inline-label">I'm just Buying</label>
@@ -33,13 +43,13 @@
               <label for="type2" class="inline-label">I'm Buying and Selling</label>
             </p>
           </div>                    
-          <div class="uk-form-row">
-            <label for="password1">Password</label>
-            <input class="md-input" type="password" id="password1" name="password1" />
+          <div class="parsely-row">
+            <label for="password1">Password <span class="req">*</span></label>
+            <input class="md-input" type="password" id="password1" name="password1" required />
           </div>
-          <div class="uk-form-row">
-            <label for="password2">Repeat Password</label>
-            <input class="md-input" type="password" id="password2" name="password2" />
+          <div class="parsely-row">
+            <label for="password2">Repeat Password <span class="req">*</span></label>
+            <input class="md-input" type="password" id="password2" name="password2" required />
           </div>
           <div class="uk-margin-medium-top">
             <button type="submit" class="md-btn md-btn-primary md-btn-block md-btn-large">Sign Up</button>
