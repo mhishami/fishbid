@@ -140,7 +140,7 @@
     </div>
   </div>
   {% endif %}
-  
+
   {% endblock %}
 
   {% block js %}
@@ -152,20 +152,16 @@
   <script src="/static/admin/bower_components/parsleyjs/dist/parsley.min.js"></script>
   <!--  forms validation functions -->
   <script src="/static/admin/assets/js/pages/forms_validation.min.js"></script>
-  <!--  notifications functions -->
-  <!-- // <script src="/static/admin/assets/js/pages/components_notifications.min.js"></script> -->
-  <script src="/static/admin/bower_components/noty/dist/jquery.noty.packaged.min.js"></script>
-
 
   {% if fish %}
   <script type="text/javascript">
-      $('#grade').selectize()[0].selectize.setValue('{{ fish.grade }}');
+    $('#grade').selectize()[0].selectize.setValue('{{ fish.grade }}');
   </script>
   {% endif %}
 
   {% if error %}
   <script type="text/javascript">
-    noty({text: '{{ error }}', type: 'error', theme: 'relax', layout: 'topCenter'});
+    UIkit.notify("<strong>{{ error }}...</strong>", {status: 'info'});
   </script>
   {% endif %}
 

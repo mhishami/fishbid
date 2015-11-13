@@ -5,6 +5,7 @@
 -export ([save/1]).
 -export ([update/2]).
 -export ([deactivate/2]).
+-export ([activate/2]).
 -export ([get_all/0]).
 -export ([get_by_id/1]).
 -export ([get_by_username/1]).
@@ -51,6 +52,16 @@ deactivate(UserId, Who) ->
             <<"updated_at">> => erlang:timestamp(),
             <<"updated_by">> => Who,
             <<"status">> => <<"inactive">>
+        }).
+
+-spec activate(UserId::binary(), Who::map()) -> {ok, any()}.
+activate(UserId, Who) ->
+    {ok, User} = mongo_worker:find_one(?DB_USERS, {<<"_id">>, UserId}),
+    mongo_worker:update(?DB_USERS, 
+        User#{ 
+            <<"updated_at">> => erlang:timestamp(),
+            <<"updated_by">> => Who,
+            <<"status">> => <<"active">>
         }).
 
 -spec get_all() -> map().
