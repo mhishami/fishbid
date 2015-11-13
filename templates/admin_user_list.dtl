@@ -1,5 +1,8 @@
 {% extends "base.dtl" %}
 
+  {% block css %}
+  {% endblock %}
+
   {% block content %}
   <div id="page_content">
     <div id="page_content_inner">
@@ -38,8 +41,8 @@
                 <i class="md-icon material-icons">&#xE5D4;</i>
                 <div class="uk-dropdown uk-dropdown-small uk-dropdown-flip">
                   <ul class="uk-nav">
-                    <li><a href="/user/edit/{{ u._id }}">Edit</a></li>
-                    <li><a href="/user/remove/{{ u._id }}">Remove</a></li>
+                    <li><a href="/admin/users/edit/{{ u._id }}">Edit</a></li>
+                    <li><a href="/admin/users/remove/{{ u._id }}">Remove</a></li>
                   </ul>
                 </div>
               </div>

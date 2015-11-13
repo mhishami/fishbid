@@ -4,30 +4,17 @@
   {% endblock %}
 
   {% block content %}
+
   <div id="page_content">
     <div id="page_content_inner">
-      {% if user.role == "admin" %}
+      {% if fish %}
       <div class="md-card">
         <div class="md-card-content">
-          {% if fish %}
           <h3 class="heading_a">Update Fish Price</h3>
           <br>
-          {% else %}
-          <h3 class="heading_a">Add Fish Price</h3>
-          <br>
-          {% endif %}
-          {% if error %}
-          <div class="uk-alert uk-alert-info" data-uk-alert>
-            <a href="#" class="uk-alert-close uk-close"></a>
-            {{ error }}
-          </div>
-          {% endif %}          
-          {% if fish %}          
-          <form method="post" action="/admin/prices/edit">
+          <form method="post" action="/admin/prices/update">
             <input type="hidden" name="_id" value="{{ fish._id }}">
-          {% else %}
-          <form method="post" action="/admin/prices">
-          {% endif %}
+
             <div class="uk-grid" data-uk-grid-margin>
               <div class="uk-width-large-1-4 uk-width-medium-1-2">
                 <div class="uk-input-group">
@@ -50,16 +37,13 @@
                 </div>
               </div>
               <div class="uk-width-large-1-4 uk-width-medium-1-2">
-                {% if fish %}
                 <button type="submit" class="md-btn md-btn-primary md-btn-block">Update</button>
-                {% else %}
-                <button type="submit" class="md-btn md-btn-primary md-btn-block">Add</button>
-                {% endif %}
               </div>
             </div>
           </form>
         </div>
       </div>
+
       {% endif %}
 
       {% if fishes %}
@@ -112,79 +96,74 @@
     <div class="uk-modal-dialog">
       <button class="uk-modal-close uk-close" type="button"></button>
       <form id="form_validation" method="post" action="/admin/prices/add">
-      <div class="uk-modal-header">
-        <h3 class="uk-modal-title">New Fish</h3>
-        <div class="uk-grid" data-uk-grid-margin>
-          <div class="uk-width-medium-1-2">
-            <div class="parsely-row">
-              <label class="uk-form-label">Name <span class="req">*</span></label>
-              <input type="text" class="md-input" name="name" required/>
+        <div class="uk-modal-header">
+          <h3 class="uk-modal-title">New Fish</h3>
+          <div class="uk-grid" data-uk-grid-margin>
+            <div class="uk-width-large-1-2 uk-width-medium-1-1">
+              <div class="uk-input-group">
+                <label class="uk-form-label">Name</label>
+                <input type="text" class="md-input" name="name" required />
+              </div>
             </div>
-          </div>
-          <div class="uk-width-medium-1-2">
-            <div class="parsely-row">
-              <label>Full Name <span class="req">*</span></label>
-              <input type="text" class="md-input" name="fullname" required/>
+            <div class="uk-width-large-1-2 uk-width-medium-1-1">
+              <div class="uk-input-group">
+                <span class="uk-input-group-addon">RM</span>
+                <label>Price (kg)</label>
+                <input type="text" class="md-input" name="price" required />
+              </div>
             </div>
-          </div>
-          <div class="uk-width-medium-1-2">
-            <div class="parsely-row">
-              <br/>
-              <label>Role</label>
-              <p>
-                <input type="radio" name="role" value="buyer" data-md-icheck checked/>
-                <label class="inline-label">I'm a Buyer</label>
-              </p>
-              <p>
-                <input type="radio" name="role" value="seller" data-md-icheck />
-                <label class="inline-label">I'm a Buyer and Seller</label>
-              </p>
-              <p>
-                <input type="radio" name="role" value="admin" data-md-icheck />
-                <label class="inline-label">Admin</label>
-              </p>
-            </div>
-          </div>
-          <div class="uk-width-medium-1-2">
-            <div class="parsely-row">
-              <label>Password <span class="req">*</span></label>
-              <input type="text" class="md-input" name="password1" required/>
-            </div>
-            <div class="parsely-row">
-              <label>Password, Again <span class="req">*</span></label>
-              <input type="text" class="md-input" name="password2" required/>
-            </div>
-          </div>
-          <div class="uk-width-medium-1-2">
-            <div class="parsely-row">
-              <label class="uk-form-label">Email <span class="req">*</span></label>
-              <input type="text" class="md-input" name="email" required/>
-            </div>
-          </div>
-          <div class="uk-width-medium-1-2">
-            <div class="parsely-row">
-              <label class="uk-form-label">Mobile No. <span class="req">*</span></label>
-              <input type="text" class="md-input" name="mobile" required/>
+            <div class="uk-width-large-1-2 uk-width-medium-1-1">
+              <div class="uk-input-group">
+                <br/>
+                <label>Grade</label>
+                <p>
+                  <input type="radio" name="grade" value="A" data-md-icheck checked/>
+                  <label class="inline-label">Grade A</label>
+                </p>
+                <p>
+                  <input type="radio" name="grade" value="B" data-md-icheck />
+                  <label class="inline-label">Grade B</label>
+                </p>
+                <p>
+                  <input type="radio" name="grade" value="C" data-md-icheck />
+                  <label class="inline-label">Grade C</label>
+                </p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="uk-modal-footer">
-        <button type="submit" class="uk-float-right md-btn md-btn-flat md-btn-flat-primary">Add</button>
-      </div>
+        <div class="uk-modal-footer">
+          <button type="submit" class="uk-float-right md-btn md-btn-flat md-btn-flat-primary">Add</button>
+        </div>
       </form>
     </div>
   </div>
-
   {% endblock %}
 
   {% block js %}
+  <script>
+    // load parsley config (altair_admin_common.js)
+    altair_forms.parsley_validation_config();
+  </script>
+  <!-- parsely lib for validation -->
+  <script src="/static/admin/bower_components/parsleyjs/dist/parsley.min.js"></script>
+  <!--  forms validation functions -->
+  <script src="/static/admin/assets/js/pages/forms_validation.min.js"></script>
+  <!--  notifications functions -->
+  <!-- // <script src="/static/admin/assets/js/pages/components_notifications.min.js"></script> -->
+  <script src="/static/admin/bower_components/noty/dist/jquery.noty.packaged.min.js"></script>
 
-    <script type="text/javascript">
-      $(function() {
-        var $select = $('#grade').selectize();
-        $select[0].selectize.setValue('{{ fish.grade }}');
-      });
-    </script>
+
+  {% if fish %}
+  <script type="text/javascript">
+      $('#grade').selectize()[0].selectize.setValue('{{ fish.grade }}');
+  </script>
+  {% endif %}
+
+  {% if error %}
+  <script type="text/javascript">
+    noty({text: '{{ error }}', type: 'error', theme: 'relax', layout: 'topCenter'});
+  </script>
+  {% endif %}
 
   {% endblock %}

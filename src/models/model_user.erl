@@ -6,6 +6,7 @@
 -export ([update/2]).
 -export ([get_all/0]).
 -export ([get_by_id/1]).
+-export ([get_by_username/1]).
 -export ([authenticate/2]).
 -export ([reset_password/1]).
 -export ([ensure_index/0]).
@@ -46,9 +47,19 @@ get_all() ->
     {ok, Users} = mongo_worker:match(?DB_USERS, {}, {<<"username">>, 1}),
     Users.
 
+-spec get_by_id(Id::binary()) -> map().
 get_by_id(Id) ->
     {ok, User} = mongo_worker:find_one(?DB_USERS, {<<"_id">>, Id}),
     User.
+
+-spec get_by_username(Username::binary()) -> map().
+get_by_username(Username) ->
+    case mongo_worker:find_one(?DB_USERS, 
+            {<<"username">>, Username},
+            [{projector, #{<<"username">> => 1, <<"role">> => 1}}]) of
+        {ok, User} -> User;
+        _ -> #{}
+    end.
 
 -spec authenticate(binary(), binary()) -> ok | error.
 authenticate(Username, Password) when is_binary(Username),
@@ -59,7 +70,7 @@ authenticate(Username, Password) when is_binary(Username),
             HashPass = web_util:hash_password(Password),
             case HashPass =:= maps:get(<<"password">>, User) of
                 true -> 
-                    ok;
+                    {ok, User};
                 _ ->
                     error
             end;

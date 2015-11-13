@@ -11,19 +11,20 @@
 -export ([ensure_index/0]).
 -export ([price/1]).
 
--spec new(binary(), binary(), binary(), binary()) -> map().
-new(Name, Grade, Price, User) when is_binary(Name),
+-spec new(Name::binary(), Grade::binary(), Price::binary(), Who::map()) -> map().
+new(Name, Grade, Price, Who) when is_binary(Name),
                                    is_binary(Grade),
-                                   is_binary(Price) ->
+                                   is_binary(Price),
+                                   is_map(Who) ->
     #{<<"_id">> => uuid:gen(),
       <<"name">> => Name,
       <<"grade">> => Grade,
       <<"price">> => price(Price),
       <<"created_at">> => erlang:timestamp(),
       <<"updated_at">> => erlang:timestamp(),
-      <<"added_by">> => User}.
+      <<"added_by">> => Who}.
 
--spec save(map()) -> {ok, any()}.
+-spec save(Fish::map()) -> {ok, any()}.
 save(Fish) when is_map(Fish) ->
     mongo_worker:save(?DB_FISHES, Fish).
 
@@ -32,7 +33,7 @@ get_all() ->
     {ok, Fishes} = mongo_worker:match(?DB_FISHES, {}, {<<"grade">>, 1}),
     Fishes.
 
--spec get(binary()) -> map().
+-spec get(Id::binary()) -> map().
 get(Id) ->
     {ok, Fish} = mongo_worker:find_one(?DB_FISHES, {<<"_id">>, Id}),
     Fish.
@@ -43,21 +44,21 @@ get_by_grades() ->
     {ok, C} = mongo_worker:match(?DB_FISHES, {<<"grade">>, <<"C">>}, {<<"name">>, 1}),
     [{grade_a, A}, {grade_b, B}, {grade_c, C}].
 
--spec update(binary(), binary(), binary(), binary(), binary()) -> {ok, any()}.
-update(Id, Name, Grade, Price, User) when is_binary(Id),
+-spec update(Id::binary(), Name::binary(), Grade::binary(), Price::binary(), Who::map()) -> {ok, any()}.
+update(Id, Name, Grade, Price, Who) when is_binary(Id),
                                           is_binary(Name),
                                           is_binary(Grade),
                                           is_binary(Price),
-                                          is_binary(User) ->
+                                          is_map(Who) ->
     Fish = #{<<"_id">> => Id,
              <<"name">> => Name,
              <<"grade">> => Grade,
              <<"price">> => price(Price),
              <<"updated_at">> => erlang:timestamp(),
-             <<"updated_by">> => User},
+             <<"updated_by">> => Who},
     mongo_worker:update(?DB_FISHES, Fish).
 
--spec delete(binary()) -> {ok, any()}.
+-spec delete(Id::binary()) -> {ok, any()}.
 delete(Id) when is_binary(Id) ->
     mongo_worker:delete(?DB_FISHES, {<<"_id">>, Id}).
 
@@ -73,7 +74,7 @@ ensure_index() ->
                                             <<"unique">> => true,
                                             <<"dropDups">> => true}).
 
--spec price(any) -> float().
+-spec price(Price::any()) -> float().
 price(Price) when is_binary(Price) ->
     Comp = binary:split(Price, <<".">>),
     case length(Comp) of

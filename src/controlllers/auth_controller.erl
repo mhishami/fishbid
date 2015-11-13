@@ -28,9 +28,12 @@ handle_request(<<"POST">>, <<"login">> = Action, _Args, Params, _Req) ->
             case model_user:authenticate(Username, Password) of
                 error ->
                     {render, Action, [{error, <<"Invalid username, or password">>}]};
-                ok ->
+                {ok, User} ->
                     Sid = maps:get(<<"sid">>, Params),
-                    session_worker:set_cookies(Sid, Username),
+                    session_worker:set_cookies(Sid, #{
+                            <<"username">> => maps:get(<<"username">>, User),
+                            <<"role">> => maps:get(<<"role">>, User)
+                        }),
 
                     %% redirect, assuming "main" is defined.
                     {redirect, <<"/">>, {cookie, <<"auth">>, Username}}

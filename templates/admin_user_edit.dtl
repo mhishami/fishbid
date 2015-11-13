@@ -1,10 +1,12 @@
 {% extends "base.dtl" %}
 
-{% block content %}
+  {% block css %}
+  {% endblock %}
 
+  {% block content %}
   <div id="page_content">
     <div id="page_content_inner">
-      <form method="post" enctype="multipart/form-data" action="/user/update" class="uk-form-stacked" id="form_validation">
+      <form method="post" enctype="multipart/form-data" action="/admin/users/update" class="uk-form-stacked" id="form_validation">
         <div class="uk-grid" data-uk-grid-margin>
           <div class="uk-width-large-7-10">
             <div class="md-card">
@@ -132,7 +134,7 @@
                 </div>
                 <hr class="md-hr">
                 <div class="uk-form-row">
-                  <label class="uk-form-label" for="role">User Role</label>
+                  <label class="uk-form-label" for="role">User Role </label>
                   <select id="role" name="role" placeholder="Role..." data-md-selectize>
                     <option value="buyer">Buyer</option>
                     <option value="seller">Seller</option>
@@ -147,16 +149,10 @@
 
     </div>
   </div>
-  <div class="uk-modal" id="bad_passwords">
-    <div class="uk-modal-dialog">
-      <button type="button" class="uk-modal-close uk-close"></button>
-      <p>Your passwords are not the same.</p>
-    </div>
-  </div>
 {% endblock %}
 
 {% block js %}
-  <script>
+  <script type="text/javascript">
     // load parsley config (altair_admin_common.js)
     altair_forms.parsley_validation_config();
   </script>
@@ -170,18 +166,19 @@
   <script src="/static/admin/assets/js/pages/page_user_edit.min.js"></script>
 
   <script type="text/javascript">
-    $(function() {
-      var $select = $('#role').selectize();
-      $select[0].selectize.setValue('{{ person.role }}');
 
-      $('#password2').focusout(function() {
+    // set the user role
+    $('#role').selectize()[0].selectize.setValue('{{ person.role }}');
+
+    // do the password match
+    $('#password2').focusout(function() {
         var pass = $('#password1').val();
         $('#passwd_alert').html(pass == $(this).val()
-          ? "Passwords match."
-          : "Passwords do not match!"
+            ? "Passwords match."
+            : "Passwords do not match!"
         );
-      });
     });
+
   </script>
 
 {% endblock %}
