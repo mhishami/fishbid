@@ -87,6 +87,7 @@
     </div>
   </div>    
 
+  {% if user.role == "admin" %}
   <div class="md-fab-wrapper">
     <a class="md-fab md-fab-accent" href="#admin_new_fish" data-uk-modal="{center:true}">
       <i class="material-icons">&#xE145;</i>
@@ -138,6 +139,8 @@
       </form>
     </div>
   </div>
+  {% endif %}
+  
   {% endblock %}
 
   {% block js %}

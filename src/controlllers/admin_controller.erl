@@ -103,6 +103,12 @@ handle_request(<<"GET">>, <<"users">>, [<<"edit">>, UserId], Params, _Req) ->
     ?DEBUG("Person= ~p", [Person]),
     {render, <<"admin_user_edit">>, [{user, User}, {person, Person}]};
 
+handle_request(<<"GET">>, <<"users">>, [<<"remove">>, UserId], Params, _Req) ->
+    ?INFO("Removing user ~p", [UserId]),
+    User = maps:get(<<"auth">>, Params),
+    model_user:deactivate(UserId, User),
+    {render, <<"admin_user_list">>, [{user, User}, {users, model_user:get_all()}]};
+
 handle_request(<<"POST">>, <<"users">>, [<<"update">>], Params, _Req) ->
     User = maps:get(<<"auth">>, Params),
     PostVals = maps:get(<<"qs_body">>, Params),
