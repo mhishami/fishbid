@@ -22,7 +22,11 @@ handle_request(<<"GET">>, <<"index">>, _Args, Params, _Req) ->
 
 handle_request(<<"GET">>, <<"prices">>, _Args, Params, _Req) ->
     User = maps:get(<<"auth">>, Params),
-    {render, <<"home_prices">>, [{user, User} | model_fish:get_by_grades()]}.
+    {render, <<"home_prices">>, [{user, User} | model_fish:get_by_grades()]};
 
+handle_request(<<"GET">>, <<"offers">>, _Args, Params, _Req) ->
+    User = maps:get(<<"auth">>, Params),
+    {render, <<"home_offers">>, [{user, User} | model_offer:get_all()]};
 
-
+handle_request(_Method, _Action, _Args, _Params, _Req) ->
+    {render, <<"error">>, [{error, <<"Method not implemented">>}]}.

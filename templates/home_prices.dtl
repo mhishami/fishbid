@@ -23,7 +23,6 @@
                 </h3>
               </div>
               <div class="md-card-content">
-                {% for f in grade_a %}
                 <table class="uk-table">
                   <thead>
                     <tr>
@@ -33,16 +32,17 @@
                     </tr>
                   </thead>
                   <tbody>
+                    {% for f in grade_a %}
                     <tr>
                       <td>{{ forloop.counter }}</td>
                       <td>{{ f.name }}</td>
                       <td>RM {{ f.price|floatformat:2 }}</td>
                     </tr>
+                    {% empty %}
+                    <p>No fish of Grade A added yet</p>              
+                    {% endfor %}
                   </tbody>
                 </table>
-                {% empty %}
-                <p>No fish of Grade A added yet</p>              
-                {% endfor %}
               </div>
             </div>
           </div>
@@ -60,7 +60,6 @@
                 </h3>
               </div>
               <div class="md-card-content">
-                {% for f in grade_b %}
                 <table class="uk-table">
                   <thead>
                     <tr>
@@ -70,16 +69,17 @@
                     </tr>
                   </thead>
                   <tbody>
+                    {% for f in grade_b %}
                     <tr>
                       <td>{{ forloop.counter }}</td>
                       <td>{{ f.name }}</td>
                       <td>RM {{ f.price|floatformat:2 }}</td>
                     </tr>
+                    {% empty %}
+                    <p>No fish of Grade B added yet</p>              
+                    {% endfor %}
                   </tbody>
                 </table>
-                {% empty %}
-                <p>No fish of Grade B added yet</p>              
-                {% endfor %}
               </div>
             </div>
           </div>
@@ -96,7 +96,6 @@
                 </h3>
               </div>
               <div class="md-card-content">
-                {% for f in grade_c %}
                 <table class="uk-table">
                   <thead>
                     <tr>
@@ -106,16 +105,17 @@
                     </tr>
                   </thead>
                   <tbody>
+                    {% for f in grade_c %}
                     <tr>
                       <td>{{ forloop.counter }}</td>
                       <td>{{ f.name }}</td>
                       <td>RM {{ f.price|floatformat:2 }}</td>
                     </tr>
+                    {% empty %}
+                    <p>No fish of Grade C added yet</p>
+                    {% endfor %}
                   </tbody>
                 </table>
-                {% empty %}
-                <p>No fish of Grade C added yet</p>
-                {% endfor %}
               </div>
             </div>
           </div>

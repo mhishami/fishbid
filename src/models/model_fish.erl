@@ -9,7 +9,7 @@
 -export ([update/5]).
 -export ([delete/1]).
 -export ([ensure_index/0]).
--export ([price/1]).
+-export ([to_float/1]).
 
 -spec new(Name::binary(), Grade::binary(), Price::binary(), Who::map()) -> map().
 new(Name, Grade, Price, Who) when is_binary(Name),
@@ -19,7 +19,7 @@ new(Name, Grade, Price, Who) when is_binary(Name),
     #{<<"_id">> => uuid:gen(),
       <<"name">> => Name,
       <<"grade">> => Grade,
-      <<"price">> => price(Price),
+      <<"price">> => to_float(Price),
       <<"created_at">> => erlang:timestamp(),
       <<"updated_at">> => erlang:timestamp(),
       <<"added_by">> => Who}.
@@ -53,7 +53,7 @@ update(Id, Name, Grade, Price, Who) when is_binary(Id),
     Fish = #{<<"_id">> => Id,
              <<"name">> => Name,
              <<"grade">> => Grade,
-             <<"price">> => price(Price),
+             <<"price">> => to_float(Price),
              <<"updated_at">> => erlang:timestamp(),
              <<"updated_by">> => Who},
     mongo_worker:update(?DB_FISHES, Fish).
@@ -74,15 +74,15 @@ ensure_index() ->
                                             <<"unique">> => true,
                                             <<"dropDups">> => true}).
 
--spec price(Price::any()) -> float().
-price(Price) when is_binary(Price) ->
-    Comp = binary:split(Price, <<".">>),
+-spec to_float(Val::any()) -> float().
+to_float(Val) when is_binary(Val) ->
+    Comp = binary:split(Val, <<".">>),
     case length(Comp) of
         1 ->
             binary_to_float(<< Price/binary, <<".0">>/binary >>);
         2 ->
-            binary_to_float(Price)
+            binary_to_float(Val)
     end;
 
-price(Price) when is_float(Price) ->
-    Price.
+to_float(Val) when is_float(Val) ->
+    Val.
