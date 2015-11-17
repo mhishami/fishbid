@@ -7,8 +7,7 @@
   <div id="page_content">
     <div id="page_content_inner">
 
-      <!-- user offers -->
-      
+      <!-- user offers -->      
       <div class="md-card">
         <div class="md-card-toolbar">
           <div class="md-card-toolbar-actions">
@@ -43,7 +42,7 @@
                   <td class="currency">{{ o.price|floatformat:2 }}</td>
                   <td class="currency">{{ o.total|floatformat:2 }}</td>
                   <td class="currency">{{ o.highest_bid|floatformat:2 }}</td>
-                  <td><span class="uk-badge uk-badge-warning">{{ o.status }}</span></td>
+                  <td><span class="uk-badge uk-badge-info">{{ o.status }}</span></td>
                   <td>{{ o.created_at|date:"D, d M Y" }}</td>
                 </tr>
                 {% endfor %}
@@ -164,7 +163,6 @@
   {% endblock %}
 
   {% block js %}
-
   <script>
     // load parsley config (altair_admin_common.js)
     altair_forms.parsley_validation_config();

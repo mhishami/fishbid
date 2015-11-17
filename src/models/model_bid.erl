@@ -6,7 +6,12 @@
 -export ([from_vals/2]).
 -export ([new/3]).
 -export ([save/1]).
+-export ([update/1]).
+-export ([get_all/1]).
 -export ([get_by_user/2]).
+-export ([get_counts_by_offer/1]).
+-export ([get_by_offer/2]).
+-export ([get_by_id/1]).
 -export ([find_highest_bid_price/1]).
 -export ([ensure_index/0]).
 -export ([sanitize/1]).
@@ -53,20 +58,34 @@ new(OfferId, BidPrice, Who) ->
 save(Bid) when is_map(Bid) ->
     mongo_worker:save(?DB_BIDS, Bid).
 
+-spec update(Bid::map()) -> {ok, any()}.
+update(Bid) ->
+    mongo_worker:update(?DB_BIDS, Bid).
+
+-spec get_all(Sanitize::boolean()) -> list().
+get_all(Sanitize) ->
+    {ok, Bids} = mongo_worker:match(?DB_BIDS, {}, {<<"sum_total">>, 1}),
+    transform(Bids, Sanitize).
+
 -spec get_by_user(UserId::binary(), Sanitize::boolean()) -> list().
 get_by_user(UserId, Sanitize) ->
     {ok, Bids} = mongo_worker:match(?DB_BIDS, {<<"bidder._id">>, {<<"$eq">>, UserId}}, {<<"sum_total">>, 1}),
-    case Sanitize of
-        true ->
-            %% repair date
-            F = fun(T) ->
-                    CA = maps:get(<<"created_at">>, T),
-                    T#{<<"created_at">> => calendar:now_to_local_time(CA)}
-                end,
-            lists:map(F, Bids);
-        _ ->
-            Bids 
-    end.
+    transform(Bids, Sanitize).
+
+-spec get_counts_by_offer(OfferId::binary()) -> integer().
+get_counts_by_offer(OfferId) ->
+    {ok, Count} = mongo_worker:count(?DB_BIDS, {<<"offer._id">>, {<<"$eq">>, OfferId}}),
+    Count.
+
+-spec get_by_offer(OfferId::binary(), Sanitize::boolean()) -> list().
+get_by_offer(OfferId, Sanitize) ->
+    {ok, Bids} = mongo_worker:match(?DB_BIDS, {<<"offer._id">>, {<<"$eq">>, OfferId}}, {<<"bid_price">>, -1}),
+    transform(Bids, Sanitize).
+
+-spec get_by_id(BidId::binary()) -> map().
+get_by_id(BidId) ->
+    {ok, Bid} = mongo_worker:find_one(?DB_BIDS, {<<"_id">>, BidId}),
+    Bid.
 
 find_by_user(UserId, OfferId) ->
     {ok, Bids} = mongo_worker:find(?DB_BIDS, {<<"bidder._id">>, {<<"$eq">>, UserId},
@@ -105,6 +124,20 @@ sanitize([H|T], Accu) ->
     end;
 sanitize([], Accu) -> to_float(Accu).
 
+-spec transform(List::list(), Sanitize::boolean()) -> list().
+transform(List, Sanitize) ->
+    case Sanitize of
+        true ->
+            F = fun(T) ->
+                    CA = maps:get(<<"created_at">>, T),
+                    T#{<<"created_at">> => calendar:now_to_local_time(CA)}
+                end,
+            lists:map(F, List);
+        _ ->
+            List
+    end.
+
+-spec check_bids(BidPrice::float(), Bids::list()) -> ok | error.
 check_bids(BidPrice, [H|T]) ->
     case BidPrice > maps:get(<<"bid_price">>, H) of
         true ->

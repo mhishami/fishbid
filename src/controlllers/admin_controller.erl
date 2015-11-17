@@ -12,8 +12,13 @@ before_filter(SessionId) ->
     case Sid of
         {error, undefined} ->
             {redirect, <<"/auth/login">>};
-        _ ->
-            {ok, proceed}
+        {ok, User} ->
+            case maps:get(<<"role">>, User) of
+                <<"admin">> ->
+                    {ok, proceed};
+                _ ->
+                    {redirect, <<"/">>}
+            end
     end.
 
 %% ======================================================================================
@@ -150,6 +155,60 @@ handle_request(<<"POST">>, <<"users">>, [<<"update">>], Params, _Req) ->
             model_user:update(Updated, User),
             {redirect, <<"/admin/users">>}
     end;
+%% ======================================================================================
+%% Offers Handling
+%% ======================================================================================
+handle_request(<<"GET">>, <<"offers">>, [], Params, _Req) ->
+    User = maps:get(<<"auth">>, Params),
+    {render, <<"admin_offers_list">>, [{user, User}, {offers, model_offer:get_all_with_bids_count()}]};
+
+handle_request(<<"GET">>, <<"offers">>, [OfferId], Params, _Req) ->
+    User = maps:get(<<"auth">>, Params),
+    {render, <<"admin_bids_list">>, [{user, User}, 
+        {offer, model_offer:get_by_id(OfferId, true)},
+        {bids, model_bid:get_by_offer(OfferId, true)}]};
+
+%% ======================================================================================
+%% Bids Handling
+%% ======================================================================================
+handle_request(<<"GET">>, <<"bids">>, [BidId], Params, _Req) ->
+    User = maps:get(<<"auth">>, Params),
+    Winner = model_bid:get_by_id(BidId),
+    ?DEBUG("Winner= ~p", [Winner]),
+    Offer = maps:get(<<"offer">>, Winner),
+    ?DEBUG("Offer= ~p", [Offer]),
+
+    %% update the current BidId as winner, and the rest as failed
+    Bids = model_bid:get_by_offer(maps:get(<<"_id">>, Offer), false),
+    F = fun(B) ->
+            case BidId =:= maps:get(<<"_id">>, B) of
+                true ->
+                    %% mark as winner
+                    model_bid:update(B#{
+                        <<"status">> => <<"successful">>,
+                        <<"updated_at">> => erlang:timestamp(),
+                        <<"updated_by">> => User
+                    });
+                false ->
+                    %% marked as failed
+                    model_bid:update(B#{
+                        <<"status">> => <<"failed">>,
+                        <<"updated_at">> => erlang:timestamp(),
+                        <<"updated_by">> => User
+                    })
+            end
+        end,
+    lists:map(F, Bids),
+
+    %% close the offer
+    model_offer:update(Offer#{
+        <<"status">> => <<"closed">>,
+        <<"updated_at">> => erlang:timestamp(),
+        <<"updated_by">> => User
+    }),
+
+    {redirect, <<"/admin/offers">>};
+
 
 %% ======================================================================================
 %% Catch All Handling

@@ -42,8 +42,14 @@
                   <td class="currency uk-text-right">{{ b.bid_price|floatformat:2 }}</td>
                   <td class="currency uk-text-right">{{ b.comm_fees|floatformat:2 }}</td>
                   <td class="currency uk-text-right">{{ b.sum_total|floatformat:2 }}</td>
-                  <td><span class="uk-badge uk-badge-info">{{ b.status }}</span></td>
-                  <td>{{ b.created_at|date:"D, d M Y, H:i:s" }}</td>
+                  {% if b.status == "successful" %}
+                  <td><span class="uk-badge uk-badge-success">{{ b.status }}</span></td>
+                  {% elif b.status == "failed" %}
+                  <td><span class="uk-badge uk-badge-danger">{{ b.status }}</span></td>
+                  {% else %}
+                  <td><span class="uk-badge uk-badge-warning">{{ b.status }}</span></td>
+                  {% endif %}
+                  <td>{{ b.created_at|date:"D, d M Y" }}</td>
                 </tr>
                 {% endfor %}
               </tbody>
