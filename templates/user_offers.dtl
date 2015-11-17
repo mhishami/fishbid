@@ -52,7 +52,7 @@
         </div>
       </div>
 
-      <!-- tasks -->
+      <!-- tasks
       <div class="md-card">
         <div class="md-card-content">
           <h3 class="heading_a">Make an Offer</h3>
@@ -93,9 +93,67 @@
           </form>
         </div>
       </div>
+      -->
 
     </div>
   </div>
+
+  <div class="md-fab-wrapper">
+    <a class="md-fab md-fab-accent" href="#new_user_offer" data-uk-modal="{center:true}">
+      <i class="material-icons">&#xE145;</i>
+    </a>
+  </div>
+  <div class="uk-modal" id="new_user_offer">
+    <div class="uk-modal-dialog">
+      <button class="uk-modal-close uk-close" type="button"></button>
+      <div class="uk-modal-header">
+        <h3 class="uk-modal-title">New Offer</h3>
+        <br/>
+        <form id="form_validation" method="post" action="/user/offers">
+          <div class="uk-grid" data-uk-grid-margin>
+            <div class="uk-width-medium-1-2">
+              <!-- <label>Fish - Market Price</label><br/> -->
+              <br/>
+              <select id="fish_id" name="fish_id" placeholder="Select Fish..." data-md-selectize>
+                {% for f in fishes %}
+                <option class="" value="{{ f._id }}">{{ f.name }} - RM {{ f.price|floatformat:2 }}</option>
+                {% endfor %}
+              </select>
+              <span class="uk-form-help-block">Fish and Market Price</span>
+            </div>
+            <div class="uk-width-medium-1-2">
+              <div class="uk-input-group">
+                <!-- <label>Weight (in kg)</label> -->
+                <input id="weight" type="text" name="weight" class="md-input" required />
+                <span class="uk-form-help-block">Weight (in kg)</span>
+                <span class="uk-input-group-addon">kg</span>
+              </div>
+            </div>
+            <div class="uk-width-medium-1-2">
+              <br/>
+              <div class="uk-input-group">
+                <span class="uk-input-group-addon">RM</span>
+                <!-- <label>Offer Price (per kg)</label> -->
+                <input id="price" type="text" name="price" class="md-input" value="0" />
+                <span class="uk-form-help-block">Offer Price (per kg)</span>
+              </div>
+            </div>
+            <div class="uk-width-medium-1-2">
+              <div class="uk-input-group">
+                <input id="total" type="text" style="font-size: 20pt;" class="md-input currency" readonly/>
+                <span class="uk-form-help-block">Price Total</span>
+              </div>
+            </div>
+            <div class="uk-width-large-1-1">
+              <button type="submit" class="uk-float-right md-btn md-btn-flat md-btn-flat-primary">Submit</button>
+            </div>
+          </div>
+        </form>
+
+      </div>      
+    </div>
+  </div>
+
   {% endblock %}
 
   {% block js %}
