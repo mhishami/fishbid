@@ -1,0 +1,59 @@
+{% extends "base.dtl" %}
+
+  {% block css %}
+  {% endblock %}
+
+  {% block content %}
+  <div id="page_content">
+    <div id="page_content_inner">
+
+      <!-- user bids -->      
+      <div class="md-card">
+        <div class="md-card-content">
+          <h3 class="heading_a">Your Bids</h3>
+          {% if bids %}      
+          <div class="uk-overflow-container">
+            <table class="uk-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Seller</th>
+                  <th class="uk-text-right">Bid Price</th>
+                  <th class="uk-text-right">Comm. Fees</th>
+                  <th class="uk-text-right">Sum Total</th>
+                  <th>Status</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for b in bids %}
+                <tr>
+                  <td>{{ forloop.counter }}</td>
+                  <td>{{ b.offer.fish.name }}</td>
+                  <td>{{ b.offer.seller.username }}</td>
+                  <td class="currency uk-text-right">{{ b.bid_price|floatformat:2 }}</td>
+                  <td class="currency uk-text-right">{{ b.comm_fees|floatformat:2 }}</td>
+                  <td class="currency uk-text-right">{{ b.sum_total|floatformat:2 }}</td>
+                  <td><span class="uk-badge uk-badge-info">{{ b.status }}</span></td>
+                  <td>{{ b.created_at|date:"D, d M Y, H:i:s" }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          {% else %}
+          <h4>No such bids yet</h4>
+          {% endif %}
+        </div>
+    </div>
+  </div>
+  {% endblock %}
+
+  {% block js %}       
+  <script src="/static/admin/assets/js/jquery.formatCurrency.min.js"></script>
+  <script type="text/javascript">
+      $('.currency').formatCurrency({symbol: 'RM '});
+  </script>
+
+  {% endblock %}

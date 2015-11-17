@@ -7,7 +7,7 @@
 -export ([new/4]).
 -export ([save/1]).
 -export ([get_all/0]).
--export ([get_by_id/1]).
+-export ([get_by_id/2]).
 -export ([get_by_user/1]).
 -export ([ensure_index/0]).
 
@@ -44,18 +44,30 @@ get_all() ->
         end,
     lists:map(F, Offers).
 
-get_by_id(OfferId) ->
+-spec get_by_id(OfferId::binary(), Sanitize::boolean()) -> list().
+get_by_id(OfferId, Sanitize) ->
     {ok, Offer} = mongo_worker:find_one(?DB_OFFERS, {<<"_id">>, OfferId}),
     %% change the date format
-    CA = maps:get(<<"created_at">>, Offer),
-    Offer#{<<"created_at">> => calendar:now_to_local_time(CA)}.
+    case Sanitize of
+      true ->
+        CA = maps:get(<<"created_at">>, Offer),
+        Offer#{<<"created_at">> => calendar:now_to_local_time(CA)};
+      _ ->
+        Offer
+    end.
 
+-spec get_by_user(UserId::binary()) -> list().
 get_by_user(UserId) ->
     {ok, Offers} = mongo_worker:find(?DB_OFFERS, {<<"seller._id">>, {<<"$eq">>, UserId}}),
     %% change the date format
     F = fun(T) ->
             CA = maps:get(<<"created_at">>, T),
-            T#{<<"created_at">> => calendar:now_to_local_time(CA)}
+            OfferId = maps:get(<<"_id">>, T),
+
+            %% inject the highest bid data in the map
+            T#{<<"created_at">> => calendar:now_to_local_time(CA),
+               <<"highest_bid">> => model_bid:find_highest_bid_price(OfferId)
+            }
         end,
     lists:map(F, Offers).
 

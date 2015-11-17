@@ -21,7 +21,8 @@
                   <th class="uk-text-nowrap">Fish</th>
                   <th class="uk-text-nowrap">Weight (kg)</th>
                   <th class="uk-text-nowrap">Unit Price</th>
-                  <th class="uk-text-nowrap">Total Price</th>
+                  <th class="uk-text-nowrap">Offer Price</th>
+                  <th class="uk-text-nowrap">Highest Bid Price</th>
                   <th class="uk-text-nowrap">Status</th>
                   <th class="uk-text-nowrap">Date</th>
                 </tr>
@@ -34,6 +35,7 @@
                   <td>{{ o.weight|floatformat:2 }}</td>
                   <td class="currency">{{ o.price|floatformat:2 }}</td>
                   <td class="currency">{{ o.total|floatformat:2 }}</td>
+                  <td class="currency">{{ o.highest_bid|floatformat:2 }}</td>
                   <td><span class="uk-badge uk-badge-warning">{{ o.status }}</span></td>
                   <td>{{ o.created_at|date:"D, d M Y" }}</td>
                 </tr>

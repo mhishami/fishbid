@@ -103,10 +103,25 @@
           var bid_price = parseFloat($('#bid_price').val());          
           $('#comm_fees').val(parseFloat(bid_price * 0.04));
           $('#comm_fees').formatCurrency({symbol: 'RM '});
-
           var comm_fees = parseFloat($('#comm_fees').val().replace(/[RM\\,]/g, ""));
           $('#sum_total').val(bid_price + comm_fees);
           $('#sum_total').formatCurrency({symbol: 'RM '});
       });
+
+      // init the price et. al.
+      $(function() {
+          var bid_price = parseFloat($('#bid_price').val());
+          $('#comm_fees').val(parseFloat(bid_price * 0.04));
+          $('#comm_fees').formatCurrency({symbol: 'RM '});
+          $('#sum_total').val(bid_price + comm_fees);
+          $('#sum_total').formatCurrency({symbol: 'RM '});
+      });
   </script>
+
+  {% if error %}
+  <script type="text/javascript">
+    UIkit.notify("<strong>{{ error }}...</strong>", {status: 'warning'});
+  </script>
+  {% endif %}
+
   {% endblock %}
