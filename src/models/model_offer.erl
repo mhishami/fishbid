@@ -7,8 +7,8 @@
 -export ([new/4]).
 -export ([save/1]).
 -export ([get_all/0]).
--export ([find_by_id/1]).
--export ([find_by_user/1]).
+-export ([get_by_id/1]).
+-export ([get_by_user/1]).
 -export ([ensure_index/0]).
 
 -spec from_vals(Vals::list(), Who::map()) -> map().
@@ -44,13 +44,13 @@ get_all() ->
         end,
     lists:map(F, Offers).
 
-find_by_id(OfferId) ->
+get_by_id(OfferId) ->
     {ok, Offer} = mongo_worker:find_one(?DB_OFFERS, {<<"_id">>, OfferId}),
     %% change the date format
     CA = maps:get(<<"created_at">>, Offer),
     Offer#{<<"created_at">> => calendar:now_to_local_time(CA)}.
 
-find_by_user(UserId) ->
+get_by_user(UserId) ->
     {ok, Offers} = mongo_worker:find(?DB_OFFERS, {<<"seller._id">>, {<<"$eq">>, UserId}}),
     %% change the date format
     F = fun(T) ->

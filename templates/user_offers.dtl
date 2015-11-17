@@ -11,10 +11,9 @@
       
       <div class="md-card">
         <div class="md-card-content">
-          <h3>Your Offers</h3>
           {% if offers %}      
           <div class="uk-overflow-container">
-            <h3>Your Offers</h3>
+            <h3 class="heading_a">Your Offers</h3>
             <table class="uk-table">
               <thead>
                 <tr>
@@ -54,7 +53,7 @@
       <!-- tasks -->
       <div class="md-card">
         <div class="md-card-content">
-          <h3>Make an Offer</h3>
+          <h3 class="heading_a">Make an Offer</h3>
           <form id="form_validation" method="post" action="/user/offers">
             <div class="uk-grid" data-uk-grid-margin>
               <div class="uk-width-medium-1-4">
@@ -81,8 +80,8 @@
               </div>
               <div class="uk-width-medium-1-4">
                 <div class="uk-input-group">
-                  <label>Total Price</label>
                   <input id="total" type="text" style="font-size: 20pt;" class="md-input currency" readonly/>
+                  <span class="uk-form-help-block">Price Total</span>
                 </div>
               </div>
               <div class="uk-width-large-1-1">
@@ -105,8 +104,7 @@
   </script>
   <!-- parsely lib for validation -->
   <script src="/static/admin/bower_components/parsleyjs/dist/parsley.min.js"></script>
-  <script src="/static/admin/bower_components/ion.rangeslider/js/ion.rangeSlider.min.js"></script>
-  <script src="/static/admin/bower_components/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
+
   <!--  forms validation functions -->
   <script src="/static/admin/assets/js/pages/forms_validation.min.js"></script>
   <script src="/static/admin/assets/js/pages/forms_advanced.min.js"></script>

@@ -19,7 +19,7 @@ before_filter(SessionId) ->
 handle_request(<<"GET">>, <<"offers">>, [], Params, _Req) ->
     User = maps:get(<<"auth">>, Params),
     Fishes = model_fish:get_for_select(),
-    Offers = model_offer:find_by_user(maps:get(<<"_id">>, User)),
+    Offers = model_offer:get_by_user(maps:get(<<"_id">>, User)),
     {render, <<"user_offers">>, [{user, User}, {fishes, Fishes}, {offers, Offers}]};
 
 handle_request(<<"POST">>, <<"offers">>, [], Params, _Req) ->
@@ -31,10 +31,19 @@ handle_request(<<"POST">>, <<"offers">>, [], Params, _Req) ->
 
     {redirect, <<"/user/offers">>};
 
-handle_request(<<"GET">>, <<"bids">>, OfferId, _Params, _Req) ->
+handle_request(<<"GET">>, <<"bids">>, [OfferId], Params, _Req) ->
+    ?DEBUG("OfferId= ~p", [OfferId]),
     User = maps:get(<<"auth">>, Params),
-    Offer = model_offer:get(OfferId),
-    {redirect, <<"/user/offers">>};
+    Offer = model_offer:get_by_id(OfferId),
+    {render, <<"user_bids">>, [{user, User}, {offer, Offer}, 
+        {max, maps:get(<<"total">>, Offer) * 2.0},
+        {min, maps:get(<<"total">>, Offer) * 0.90}
+    ]};
+
+handle_request(<<"POST">>, <<"bids">>, [], Params, _Req) ->
+    User = maps:get(<<"auth">>, Params),
+    PostVals = maps:get(<<"qs_body">>, Params),
+    Bid = model_bid:from_vals(PostVals, User),
 
 handle_request(Method, Action, Args, Params, Req) ->
     {render, <<"error">>, [
