@@ -135,11 +135,11 @@
           <div class="uk-width-medium-1-2">
             <div class="parsely-row">
               <label>Password <span class="req">*</span></label>
-              <input type="text" class="md-input" name="password1" required/>
+              <input type="password" class="md-input" name="password1" required/>
             </div>
             <div class="parsely-row">
               <label>Password, Again <span class="req">*</span></label>
-              <input type="text" class="md-input" name="password2" required/>
+              <input type="password" class="md-input" name="password2" required/>
             </div>
           </div>
           <div class="uk-width-medium-1-2">
