@@ -1,0 +1,129 @@
+{% extends "base.dtl" %}
+
+  {% block css %}
+  {% endblock %}
+
+  {% block content %}
+  <div id="page_content">
+    <div id="page_content_inner">
+
+      <!-- user offers -->
+      
+      <div class="md-card">
+        <div class="md-card-content">
+          <h3>Your Offers</h3>
+          {% if offers %}      
+          <div class="uk-overflow-container">
+            <h3>Your Offers</h3>
+            <table class="uk-table">
+              <thead>
+                <tr>
+                  <th class="uk-text-nowrap">#</th>
+                  <th class="uk-text-nowrap">Fish</th>
+                  <th class="uk-text-nowrap">Weight (kg)</th>
+                  <th class="uk-text-nowrap">Unit Price</th>
+                  <th class="uk-text-nowrap">Total Price</th>
+                  <th class="uk-text-nowrap">Status</th>
+                  <th class="uk-text-nowrap">Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for o in offers %}
+                <tr>
+                  <td>{{ forloop.counter }}</td>
+                  <td>{{ o.fish.name }}</td>
+                  <td>{{ o.weight|floatformat:2 }}</td>
+                  <td class="currency">{{ o.price|floatformat:2 }}</td>
+                  <td class="currency">{{ o.total|floatformat:2 }}</td>
+                  <td><span class="uk-badge uk-badge-warning">{{ o.status }}</span></td>
+                  <td>{{ o.created_at|date:"D, d M Y" }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          {% else %}
+          <div class="uk-alert uk-alert-info" data-uk-alert>
+            <a href="#" class="uk-alert-close uk-close"></a>
+            <p>You've not made an offer yet. Create one below.</p>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- tasks -->
+      <div class="md-card">
+        <div class="md-card-content">
+          <h3>Make an Offer</h3>
+          <form id="form_validation" method="post" action="/user/offers">
+            <div class="uk-grid" data-uk-grid-margin>
+              <div class="uk-width-medium-1-4">
+                <label>Fish - Market Price</label><br/>
+                <select id="fish_id" name="fish_id" placeholder="Select Fish..." data-md-selectize>
+                  {% for f in fishes %}
+                  <option class="" value="{{ f._id }}">{{ f.name }} - RM {{ f.price|floatformat:2 }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="uk-width-medium-1-4">
+                <div class="uk-input-group">
+                  <label>Weight (in kg)</label>
+                  <input id="weight" type="text" name="weight" class="md-input" required />
+                  <span class="uk-input-group-addon">kg</span>
+                </div>
+              </div>
+              <div class="uk-width-medium-1-4">                  
+                <div class="uk-input-group">
+                  <span class="uk-input-group-addon">RM</span>
+                  <label>Offer Price (per kg)</label>
+                  <input id="price" type="text" name="price" class="md-input" value="0" />
+                </div>
+              </div>
+              <div class="uk-width-medium-1-4">
+                <div class="uk-input-group">
+                  <label>Total Price</label>
+                  <input id="total" type="text" style="font-size: 20pt;" class="md-input currency" readonly/>
+                </div>
+              </div>
+              <div class="uk-width-large-1-1">
+                <button type="submit" class="uk-float-right md-btn md-btn-flat md-btn-flat-primary">Submit</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  {% endblock %}
+
+  {% block js %}
+
+  <script>
+    // load parsley config (altair_admin_common.js)
+    altair_forms.parsley_validation_config();
+  </script>
+  <!-- parsely lib for validation -->
+  <script src="/static/admin/bower_components/parsleyjs/dist/parsley.min.js"></script>
+  <script src="/static/admin/bower_components/ion.rangeslider/js/ion.rangeSlider.min.js"></script>
+  <script src="/static/admin/bower_components/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
+  <!--  forms validation functions -->
+  <script src="/static/admin/assets/js/pages/forms_validation.min.js"></script>
+  <script src="/static/admin/assets/js/pages/forms_advanced.min.js"></script>
+  <script src="/static/admin/assets/js/jquery.formatCurrency.min.js"></script>
+  <script type="text/javascript">
+
+      $('.currency').formatCurrency({symbol: 'RM '});
+
+      $("#price, #weight").bind("change", function(e) {
+          var total = 0;
+          var weight = parseFloat($('#weight').val());
+          var price = parseFloat($('#price').val());
+
+          total = weight * price;
+          $('#total').val( total );
+          $('#total').formatCurrency({symbol: 'RM '});
+      });
+
+  </script>
+  {% endblock %}

@@ -2,6 +2,7 @@
 -include ("fishbid.hrl").
 
 -export ([new/4]).
+-export ([init/1]).
 -export ([save/1]).
 -export ([update/1]).
 -export ([ensure_index/0]).
@@ -20,6 +21,12 @@ new(UserId, Debit, Credit, Status) when is_binary(UserId),
       <<"created_at">> => erlang:timestamp(),
       <<"updated_at">> => erlang:timestamp()}.
 
+-spec init(UserId::binary()) -> {ok, any()}.
+init(UserId) ->
+    {Debit, Credit} = {0.0, 0.0},
+    Trx = model_trx:new(UserId, Debit, Credit, <<"done">>),
+    model_trx:save(Trx).
+
 -spec save(any()) -> {ok, any()}.
 save(Trx) ->
     mongo_worker:save(?DB_TRXS, Trx).
@@ -32,5 +39,6 @@ update(Trx) ->
 ensure_index() ->
     mongo_worker:ensure_index(?DB_TRXS, #{<<"key">> => #{<<"user_id">> => 1}}),
     mongo_worker:ensure_index(?DB_TRXS, #{<<"key">> => #{<<"status">> => 1}}),
-    mongo_worker:ensure_index(?DB_TRXS, #{<<"key">> => #{<<"user_id">> => 1, <<"status">> => 1}}).
+    mongo_worker:ensure_index(?DB_TRXS, #{<<"key">> => #{<<"user_id">> => 1, <<"status">> => 1}}),
+    ok.
 

@@ -36,7 +36,7 @@
                     <tr>
                       <td>{{ forloop.counter }}</td>
                       <td>{{ f.name }}</td>
-                      <td>RM {{ f.price|floatformat:2 }}</td>
+                      <td class="currency">{{ f.price }}</td>
                     </tr>
                     {% empty %}
                     <p>No fish of Grade A added yet</p>              
@@ -73,7 +73,7 @@
                     <tr>
                       <td>{{ forloop.counter }}</td>
                       <td>{{ f.name }}</td>
-                      <td>RM {{ f.price|floatformat:2 }}</td>
+                      <td class="currency">{{ f.price }}</td>
                     </tr>
                     {% empty %}
                     <p>No fish of Grade B added yet</p>              
@@ -109,7 +109,7 @@
                     <tr>
                       <td>{{ forloop.counter }}</td>
                       <td>{{ f.name }}</td>
-                      <td>RM {{ f.price|floatformat:2 }}</td>
+                      <td class="currency">{{ f.price }}</td>
                     </tr>
                     {% empty %}
                     <p>No fish of Grade C added yet</p>
@@ -126,4 +126,9 @@
   {% endblock %}
 
   {% block js %}
+  <script src="/static/admin/assets/js/jquery.formatCurrency.min.js"></script>
+  <script type="text/javascript">
+    $('.currency').formatCurrency({symbol: 'RM '});
+  </script>
+
   {% endblock %}

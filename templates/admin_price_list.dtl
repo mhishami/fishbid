@@ -69,7 +69,7 @@
                   <td class="uk-width-1-10 uk-text-center">{{ forloop.counter }}</td>
                   <td class="uk-width-2-10">{{ i.name }}</td>
                   <td class="uk-width-2-10 uk-text-center">{{ i.grade }}</td>
-                  <td class="uk-width-2-10 uk-text-right">{{ i.price|floatformat:2}}</td>
+                  <td class="uk-width-2-10 uk-text-right currency">{{ i.price }}</td>
                   {% if user.role == "admin" %}
                   <td class="uk-text-center">
                     <a href="/admin/prices/edit/{{ i._id }}"><i class="md-icon material-icons">&#xE254;</i></a>
@@ -152,6 +152,11 @@
   <script src="/static/admin/bower_components/parsleyjs/dist/parsley.min.js"></script>
   <!--  forms validation functions -->
   <script src="/static/admin/assets/js/pages/forms_validation.min.js"></script>
+
+  <script src="/static/admin/assets/js/jquery.formatCurrency.min.js"></script>
+  <script type="text/javascript">
+    $('.currency').formatCurrency({symbol: 'RM '});
+  </script>
 
   {% if fish %}
   <script type="text/javascript">

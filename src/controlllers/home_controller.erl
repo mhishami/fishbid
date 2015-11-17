@@ -26,7 +26,15 @@ handle_request(<<"GET">>, <<"prices">>, _Args, Params, _Req) ->
 
 handle_request(<<"GET">>, <<"offers">>, _Args, Params, _Req) ->
     User = maps:get(<<"auth">>, Params),
-    {render, <<"home_offers">>, [{user, User} | model_offer:get_all()]};
+    {render, <<"home_offers">>, [{user, User}, {offers, model_offer:get_all()}]};
 
-handle_request(_Method, _Action, _Args, _Params, _Req) ->
-    {render, <<"error">>, [{error, <<"Method not implemented">>}]}.
+handle_request(Method, Action, Args, Params, Req) ->
+    {render, <<"error">>, [
+        {error, <<"Method not implemented">>},
+        {details, [
+            {method, Method}, 
+            {action, Action}, 
+            {args, Args}, 
+            {params, jsx:prettify(jsx:encode(Params))},
+            {req, Req}]}
+    ]}.

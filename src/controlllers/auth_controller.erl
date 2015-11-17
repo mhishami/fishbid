@@ -31,6 +31,7 @@ handle_request(<<"POST">>, <<"login">> = Action, _Args, Params, _Req) ->
                 {ok, User} ->
                     Sid = maps:get(<<"sid">>, Params),
                     session_worker:set_cookies(Sid, #{
+                            <<"_id">> => maps:get(<<"_id">>, User),
                             <<"username">> => maps:get(<<"username">>, User),
                             <<"role">> => maps:get(<<"role">>, User)
                         }),
@@ -64,9 +65,7 @@ handle_request(<<"POST">>, <<"register">> = Action, _Args, Params, _Req) ->
                 {ok, _} ->
                     %% ok, user is not duplicates and all
                     UserId = maps:get(<<"_id">>, User),
-                    {Debit, Credit} = {0.0, 0.0},
-                    Trx = model_trx:new(UserId, Debit, Credit, <<"done">>),
-                    model_trx:save(Trx),
+                    model_trx:init(UserId),
                     {redirect, <<"/auth/login">>};
                 _ ->
                     %% we got duplicates
@@ -86,4 +85,15 @@ handle_request(<<"POST">>, <<"reset_pwd">> = Action, _Args, Params, _Req) ->
         _ ->
             model_user:reset_password(Email),
             {render, Action, [{error, <<"Please check your email for a password reset">>}]}
-    end.
+    end;
+
+handle_request(Method, Action, Args, Params, Req) ->
+    {render, <<"error">>, [
+        {error, <<"Method not implemented">>},
+        {details, [
+            {method, Method}, 
+            {action, Action}, 
+            {args, Args}, 
+            {params, jsx:prettify(jsx:encode(Params))},
+            {req, Req}]}
+    ]}.

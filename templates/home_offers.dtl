@@ -1,0 +1,64 @@
+{% extends "base.dtl" %}
+
+  {% block css %}
+  {% endblock %}
+
+  {% block content %}
+  <div id="page_content">
+    <div id="page_content_inner">
+
+      <div class="md-card">
+        <div class="md-card-content">
+          <h3>Market Offers</h3>
+          {% if offers %}      
+          <div class="uk-overflow-container">
+            <table class="uk-table">
+              <thead>
+                <tr>
+                  <th class="uk-text-nowrap">#</th>
+                  <th class="uk-text-nowrap">Fish</th>
+                  <th class="uk-text-nowrap">Weight (kg)</th>
+                  <th class="uk-text-nowrap">Unit Price</th>
+                  <th class="uk-text-nowrap">Total Price</th>
+                  <th class="uk-text-nowrap">Status</th>
+                  <th class="uk-text-nowrap">Date</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for o in offers %}
+                <tr>
+                  <td>{{ forloop.counter }}</td>
+                  <td>{{ o.fish.name }}</td>
+                  <td>{{ o.weight|floatformat:2 }}</td>
+                  <td class="currency">{{ o.price|floatformat:2 }}</td>
+                  <td class="currency">{{ o.total|floatformat:2 }}</td>
+                  <td><span class="uk-badge uk-badge-warning">{{ o.status }}</span></td>
+                  <td>{{ o.created_at|date:"D, d M Y" }}</td>
+                  <td>
+                    <a class="uk-float-right md-btn md-btn-flat md-btn-flat-primary" href="/user/bids/{{ o._id }}">Bid</a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          {% else %}
+          <div class="uk-alert uk-alert-info" data-uk-alert>
+            <a href="#" class="uk-alert-close uk-close"></a>
+            <p>There's no offer on the market yet.</p>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+
+    </div>
+  </div>
+  {% endblock %}
+
+  {% block js %}
+  <script src="/static/admin/assets/js/jquery.formatCurrency.min.js"></script>
+  <script type="text/javascript">
+      $('.currency').formatCurrency({symbol: 'RM '});
+  </script>
+  {% endblock %}

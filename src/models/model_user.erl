@@ -2,6 +2,7 @@
 -include ("fishbid.hrl").
 
 -export ([new/7]).
+-export ([make_admin/0]).
 -export ([save/1]).
 -export ([update/2]).
 -export ([deactivate/2]).
@@ -14,9 +15,9 @@
 -export ([ensure_index/0]).
 
 -spec new(Username::binary(), Fullname::binary(), Role::binary(), Email::binary(), 
-    Mobile::binary(), Password::binary(), Admin::any()) -> any().
-new(Username, Fullname, Role, Email, Mobile, Password, Admin) ->
-    ?INFO("~p: Creating a new user: ~p, ~p, ~p", [Admin, Username, Role, Fullname]),
+    Mobile::binary(), Password::binary(), Who::any()) -> any().
+new(Username, Fullname, Role, Email, Mobile, Password, Who) ->
+    ?INFO("~p: Creating a new user: ~p, ~p, ~p", [Who, Username, Role, Fullname]),
 
     #{ <<"_id">> => uuid:gen(),
        <<"username">> => Username,
@@ -29,8 +30,22 @@ new(Username, Fullname, Role, Email, Mobile, Password, Admin) ->
        <<"balances">> => 0.0,
        <<"created_at">> => erlang:timestamp(),
        <<"updated_at">> => erlang:timestamp(),
-       <<"created_by">> => Admin,
-       <<"updated_by">> => Admin}.
+       <<"created_by">> => Who,
+       <<"updated_by">> => Who}.
+
+-spec make_admin() -> {ok, any()}.
+make_admin() ->
+    User = new(<<"hisham">>, 
+               <<"Hisham Ismail">>, 
+               <<"admin">>, 
+               <<"mhishami@gmail.com">>, 
+               <<"0196622165">>,
+               <<"sa">>,
+               #{<<"username">> => <<"hisham">>, <<"role">> => <<"admin">>}),
+    save(User),
+    UserId = maps:get(<<"_id">>, User),
+    model_trx:init(UserId).
+
 
 -spec save(User::map()) -> {ok, any()}.
 save(User) ->
@@ -115,4 +130,5 @@ ensure_index() ->
     mongo_worker:ensure_index(?DB_USERS, #{<<"key">> => #{<<"email">> => 1, <<"username">> => 1},
                                            <<"unique">> => true,
                                            <<"dropDups">> => true}),
-    mongo_worker:ensure_index(?DB_USERS, #{<<"key">> => #{<<"password">> => 1}}).
+    mongo_worker:ensure_index(?DB_USERS, #{<<"key">> => #{<<"password">> => 1}}),
+    ok.

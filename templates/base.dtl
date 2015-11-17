@@ -60,7 +60,7 @@
               <a href="#" id="main_search_btn" class="user_action_icon"><i class="material-icons md-24 md-light">&#xE8B6;</i></a>
             </li>
             <li data-uk-dropdown="{mode:'click'}">
-              <a href="#" class="user_action_image"><img class="md-user-image" src="/static/admin/assets/img/avatars/avatar_11_tn.png" alt=""/></a>
+              <a href="#" class="user_action_image"><img class="md-user-image" src="/static/admin/assets/img/avatars/user.png" alt=""/></a>
               <div class="uk-dropdown uk-dropdown-small uk-dropdown-flip">
                 <ul class="uk-nav js-uk-prevent">
                   <li><a href="/settings/profile">My profile</a></li>
@@ -157,6 +157,7 @@
     </div>
   </div>
   {% endblock %}  
+
   <!-- common functions -->
   <script src="/static/admin/assets/js/common.min.js"></script>
   <!-- uikit functions -->
@@ -164,6 +165,17 @@
   <!-- altair core functions -->
   <script src="/static/admin/assets/js/altair_admin_common.min.js"></script>
   
+  <script>
+      $(function() {
+          // enable hires images
+          altair_helpers.retina_images();
+          // fastClick (touch devices)
+          if(Modernizr.touch) {
+              FastClick.attach(document.body);
+          }
+      });
+  </script>
+
   {% block js %}
   {% endblock %}
 
