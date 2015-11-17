@@ -22,11 +22,11 @@
           {% endif %}
           <div class="parsely-row">
             <label for="username">Username</label>
-            <input type="text" id="username" name="username" required class="md-input" value="hisham" />
+            <input type="text" id="username" name="username" required class="md-input" />
           </div>
           <div class="parsely-row">
             <label for="password">Password</label>
-            <input type="password" id="password" name="password" required class="md-input" value="sa" />
+            <input type="password" id="password" name="password" required class="md-input" />
           </div>
           <div class="uk-margin-medium-top">
             <button type="submit" class="md-btn md-btn-primary md-btn-block md-btn-large">Sign In</button>
