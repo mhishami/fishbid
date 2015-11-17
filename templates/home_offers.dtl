@@ -8,8 +8,15 @@
     <div id="page_content_inner">
 
       <div class="md-card">
+        <div class="md-card-toolbar">
+          <div class="md-card-toolbar-actions">
+            <i class="md-icon material-icons md-card-fullscreen-activate">&#xE5D0;</i>
+            <i class="md-icon material-icons md-card-toggle">&#xE316;</i>
+            <i class="md-icon material-icons md-card-close">&#xE5CD;</i>
+          </div>
+          <h3 class="md-card-toolbar-heading-text">Market Offers</h3>
+        </div>                
         <div class="md-card-content">
-          <h3>Market Offers</h3>
           {% if offers %}      
           <div class="uk-overflow-container">
             <table class="uk-table">

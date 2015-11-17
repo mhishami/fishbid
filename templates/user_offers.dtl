@@ -10,10 +10,17 @@
       <!-- user offers -->
       
       <div class="md-card">
+        <div class="md-card-toolbar">
+          <div class="md-card-toolbar-actions">
+            <i class="md-icon material-icons md-card-fullscreen-activate">&#xE5D0;</i>
+            <i class="md-icon material-icons md-card-toggle">&#xE316;</i>
+            <i class="md-icon material-icons md-card-close">&#xE5CD;</i>
+          </div>
+          <h3 class="md-card-toolbar-heading-text">Your Offers</h3>
+        </div>        
         <div class="md-card-content">
           {% if offers %}      
           <div class="uk-overflow-container">
-            <h3 class="heading_a">Your Offers</h3>
             <table class="uk-table">
               <thead>
                 <tr>

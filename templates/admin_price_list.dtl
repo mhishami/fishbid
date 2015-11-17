@@ -9,6 +9,14 @@
     <div id="page_content_inner">
       {% if fish %}
       <div class="md-card">
+        <div class="md-card-toolbar">
+          <div class="md-card-toolbar-actions">
+            <i class="md-icon material-icons md-card-fullscreen-activate">&#xE5D0;</i>
+            <i class="md-icon material-icons md-card-toggle">&#xE316;</i>
+            <i class="md-icon material-icons md-card-close">&#xE5CD;</i>
+          </div>
+          <h3 class="md-card-toolbar-heading-text">Your Offers</h3>
+        </div>                
         <div class="md-card-content">
           <h3 class="heading_a">Update Fish Price</h3>
           <br>
@@ -49,8 +57,15 @@
       {% if fishes %}
       <div class="md-card uk-margin-medium-bottom">
         <div class="md-card-content">
+          <div class="md-card-toolbar">
+            <div class="md-card-toolbar-actions">
+              <i class="md-icon material-icons md-card-fullscreen-activate">&#xE5D0;</i>
+              <i class="md-icon material-icons md-card-toggle">&#xE316;</i>
+              <i class="md-icon material-icons md-card-close">&#xE5CD;</i>
+            </div>
+            <h3 class="md-card-toolbar-heading-text">Fish Prices</h3>
+          </div>                  
           <div class="uk-overflow-container">
-            <h3 class="heading_a uk-margin-bottom">Fish Prices</h3>
             <table class="uk-table uk-table-nowrap">
               <thead>
                 <tr>
