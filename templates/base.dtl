@@ -93,6 +93,7 @@
     <div class="menu_section">
       <ul>
         <li title="Dashboard">
+          {% if user.role == "admin" %}
           <a href="/admin/dashboard">
             <span class="menu_icon"><i class="material-icons">&#xE871;</i></span>
             <span class="menu_title">Dashboard</span>
@@ -110,6 +111,7 @@
             <li><a href="/admin/invoices">Invoices</a></li>
           </ul>
         </li>
+        {% endif %}
         <li title="Prices">
           <a href="/home/prices">
             <span class="menu_icon"><i class="material-icons">&#xE54E;</i></span>

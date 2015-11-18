@@ -120,7 +120,7 @@
             <div class="uk-width-medium-1-2">
               <!-- <label>Fish - Market Price</label><br/> -->
               <br/>
-              <select id="fish_id" name="fish_id" placeholder="Select Fish..." data-md-selectize>
+              <select id="fish_id" name="fish_id" placeholder="Select Fish..."> <!-- data-md-selectize> -->
                 {% for f in fishes %}
                 <option class="" value="{{ f._id }}">{{ f.name }} - RM {{ f.price|floatformat:2 }}</option>
                 {% endfor %}
