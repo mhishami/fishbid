@@ -18,7 +18,12 @@ before_filter(SessionId) ->
 
 handle_request(<<"GET">>, <<"index">>, _Args, Params, _Req) ->
     User = maps:get(<<"auth">>, Params),
-    {render, <<"home">>, [{user, User}]};
+    {render, <<"home">>, [
+        {user, User},
+        {bids, model_bid:get_all(true)},
+        {success, model_bid:get_successful_bids()}
+
+    ]};
 
 handle_request(<<"GET">>, <<"base">>, _Args, Params, _Req) ->
     User = maps:get(<<"auth">>, Params),

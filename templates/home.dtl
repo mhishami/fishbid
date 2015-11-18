@@ -4,26 +4,104 @@
   <div id="page_content">
     <div id="page_content_inner">
 
-      <h3 class="heading_b uk-margin-bottom">Blank Page</h3>
-
-      <div class="md-card">
-        <div class="md-card-toolbar">
-          <div class="md-card-toolbar-actions">
-            <i class="md-icon material-icons md-card-fullscreen-activate">&#xE5D0;</i>
-            <i class="md-icon material-icons md-card-toggle">&#xE316;</i>
-            <i class="md-icon material-icons md-card-close">&#xE5CD;</i>
+      <div class="uk-grid"  data-uk-grid-margin>
+        <div class="uk-width-medium-1-2 uk-width-large-1-2">
+          <div class="md-card">
+            <div class="md-card-toolbar">
+              <div class="md-card-toolbar-actions">
+                <i class="md-icon material-icons md-card-fullscreen-activate">&#xE5D0;</i>
+                <i class="md-icon material-icons md-card-toggle">&#xE316;</i>
+                <i class="md-icon material-icons md-card-close">&#xE5CD;</i>
+              </div>
+              <h3 class="md-card-toolbar-heading-text">Offers</h3>
+            </div>                      
+            <div class="md-card-content">
+              <div class="uk-overflow-container">
+                {% if bids %}
+                <table class="uk-table uk-table-nowrap">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Name</th>
+                      <th class="uk-text-right">Weight</th>
+                      <th class="uk-text-right">Offer Price</th>
+                      <th class="uk-text-right">Bid Price</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for b in bids %}
+                    <tr>
+                      <td>{{ forloop.counter }}</td>
+                      <td>{{ b.offer.fish.name }}</td>
+                      <td class="uk-text-right weight">{{ b.offer.weight }}</td>
+                      <td class="uk-text-right currency">{{ b.offer.total|floatformat:2 }}</td>
+                      <td class="uk-text-right currency">{{ b.bid_price|floatformat:2 }}</td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>                 
+                {% else %}
+                <h3 class="heading_b">No bids available yet</h3>
+                {% endif %}                  
+              </div>
+            </div>
           </div>
-          <h3 class="md-card-toolbar-heading-text">Your Bids</h3>
-        </div>                      
-
-        <div class="md-card-content">
-          <div class="uk-grid" data-uk-grid-margin>
-            <div class="uk-width-1-1">
-              Impedit et modi amet nemo quia modi enim ut ullam qui et dolore consequuntur repellat sunt sed adipisci voluptas sed id adipisci et deserunt illum velit odit dolore id architecto laborum ipsum eos minus eaque nesciunt quisquam aut est quo numquam dolor ullam eius illo asperiores iste doloribus eos necessitatibus cupiditate exercitationem neque ducimus optio expedita incidunt aut consequatur est voluptate fuga quia corporis delectus explicabo debitis qui ab doloremque sapiente repellendus velit id aut voluptas ea voluptatem officiis voluptatem dolores eum sit et maiores ea ipsum sed placeat omnis ducimus ipsa tempore et sed ullam eligendi est fugit quam temporibus ipsa suscipit et mollitia occaecati animi quod explicabo qui voluptatem placeat culpa atque odio expedita atque eum ea quisquam eos sit voluptatibus ducimus est explicabo est.                        </div>
+        </div>
+        <div class="uk-width-medium-1-2 uk-width-large-1-2">
+          <div class="md-card">
+            <div class="md-card-toolbar">
+              <div class="md-card-toolbar-actions">
+                <i class="md-icon material-icons md-card-fullscreen-activate">&#xE5D0;</i>
+                <i class="md-icon material-icons md-card-toggle">&#xE316;</i>
+                <i class="md-icon material-icons md-card-close">&#xE5CD;</i>
+              </div>
+              <h3 class="md-card-toolbar-heading-text">Closed Bids</h3>
+            </div>                      
+            <div class="md-card-content">
+              <div class="uk-overflow-container">
+                {% if success %}
+                <table class="uk-table uk-table-nowrap">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Name</th>
+                      <th>Bidder</th>
+                      <th class="uk-text-right">Weight</th>
+                      <th class="uk-text-right">Bid Price</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for s in success %}
+                    <tr>
+                      <td>{{ forloop.counter }}</td>
+                      <td>{{ s.offer.fish.name }}</td>
+                      <td>{{ s.bidder.username }}</td>
+                      <td class="uk-text-right weight">{{ s.offer.weight }}</td>
+                      <td class="uk-text-right currency">{{ s.bid_price|floatformat:2 }}</td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>         
+                {% else %}
+                <h3 class="heading_b">No closed bids yet</h3>
+                {% endif %}             
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
     </div>
   </div>
-{% endblock %}
+  {% endblock %}
+
+  {% block js %}
+  <!-- peity (small charts) -->
+  <script src="/static/admin/bower_components/peity/jquery.peity.min.js"></script>
+  <script src="/static/admin/assets/js/pages/dashboard.min.js"></script>
+  <script src="/static/admin/assets/js/jquery.formatCurrency.min.js"></script>
+  <script type="text/javascript">
+      $('.currency').formatCurrency({symbol: 'RM '});
+      $('.weight').formatCurrency({symbol: ''});
+  </script>
+  {% endblock %}  
