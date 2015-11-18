@@ -3,10 +3,11 @@
 
 -export ([new/4]).
 -export ([save/1]).
--export ([get_all/0]).
 -export ([get/1]).
--export ([get_by_grades/0]).
+-export ([get_all/0]).
+-export ([get_count/0]).
 -export ([get_for_select/0]).
+-export ([get_by_grades/0]).
 -export ([update/5]).
 -export ([delete/1]).
 -export ([ensure_index/0]).
@@ -29,20 +30,26 @@ new(Name, Grade, Price, Who) when is_binary(Name),
 save(Fish) when is_map(Fish) ->
     mongo_worker:save(?DB_FISHES, Fish).
 
--spec get_all() -> list().
-get_all() ->
-    {ok, Fishes} = mongo_worker:match(?DB_FISHES, {}, {<<"grade">>, 1}),
-    Fishes.
-
-get_for_select() ->
-    {ok, Fishes} = mongo_worker:match(?DB_FISHES, {}, {<<"name">>, 1}), 
-    Fishes.
-
 -spec get(Id::binary()) -> map().
 get(Id) ->
     {ok, Fish} = mongo_worker:find_one(?DB_FISHES, {<<"_id">>, Id}, 
         [{projector, {<<"name">>, 1, <<"grade">>, 1, <<"price">>, 1}}]),
     Fish.
+
+-spec get_all() -> list().
+get_all() ->
+    {ok, Fishes} = mongo_worker:match(?DB_FISHES, {}, {<<"grade">>, 1}),
+    Fishes.
+
+-spec get_count() -> integer().
+get_count() ->
+    {ok, Count} = mongo_worker:count(?DB_FISHES, {}),
+    Count.
+
+-spec get_for_select() -> list().
+get_for_select() ->
+    {ok, Fishes} = mongo_worker:match(?DB_FISHES, {}, {<<"name">>, 1}), 
+    Fishes.
 
 get_by_grades() ->
     {ok, A} = mongo_worker:match(?DB_FISHES, {<<"grade">>, <<"A">>}, {<<"name">>, 1}),

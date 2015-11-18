@@ -209,6 +209,21 @@ handle_request(<<"GET">>, <<"bids">>, [BidId], Params, _Req) ->
 
     {redirect, <<"/admin/offers">>};
 
+%% ======================================================================================
+%% Dashboard Handling
+%% ======================================================================================
+handle_request(<<"GET">>, <<"dashboard">>, [], Params, _Req) ->
+    User = maps:get(<<"auth">>, Params),
+    {render, <<"admin_dashboard">>, [
+        {user, User},
+        {fish_count, model_fish:get_count()},
+        {sales_bid, model_bid:get_sales_for_bids()},
+        {offers_completed, model_offer:get_all_completed_count()},
+        {users_count, model_user:get_users_count()},
+        {bids, model_bid:get_all(true)},
+        {success, model_bid:get_successful_bids()}
+    ]};
+
 
 %% ======================================================================================
 %% Catch All Handling

@@ -1,0 +1,144 @@
+{% extends "base.dtl" %}
+
+{% block content %}
+  <div id="page_content">
+    <div id="page_content_inner">
+      
+      <!-- statistics (small charts) -->
+      <div class="uk-grid uk-grid-width-large-1-4 uk-grid-width-medium-1-2 uk-grid-medium uk-sortable sortable-handler hierarchical_show" data-uk-sortable data-uk-grid-margin>
+        <div>
+          <div class="md-card">
+            <div class="md-card-content">
+              <div class="uk-float-right uk-margin-top uk-margin-small-right"><span class="peity_visitors peity_data">5,3,9,6,5,9,7</span></div>
+              <span class="uk-text-muted uk-text-small">Fish Entries</span>
+              <h4 class="uk-margin-remove"><span class="countUpMe">{{ fish_count }}<noscript>{{ fish_count }}</noscript></span></h4>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="md-card">
+            <div class="md-card-content">
+              <div class="uk-float-right uk-margin-top uk-margin-small-right"><span class="peity_sale peity_data">5,3,9,6,5,9,7,3,5,2</span></div>
+              <span class="uk-text-muted uk-text-small">Sales Completed</span>
+              <h4 class="uk-margin-remove"><span class="countUpMe currency">{{ sales_bid|floatformat:2 }}<noscript>142384</noscript></span></h4>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="md-card">
+            <div class="md-card-content">
+              <div class="uk-float-right uk-margin-top uk-margin-small-right"><span class="peity_orders peity_data">64/100</span></div>
+              <span class="uk-text-muted uk-text-small">Offers Completed</span>
+              <h4 class="uk-margin-remove"><span class="countUpMe">{{ offers_completed }}<noscript>64</noscript></span></h4>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="md-card">
+            <div class="md-card-content">
+              <div class="uk-float-right uk-margin-top uk-margin-small-right"><span class="peity_live peity_data">5,3,9,6,5,9,7,3,5,2,5,3,9,6,5,9,7,3,5,2</span></div>
+              <span class="uk-text-muted uk-text-small">Users</span>
+              <h4 class="uk-margin-remove" id="">{{ users_count }}</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="uk-grid"  data-uk-grid-margin>
+        <div class="uk-width-1-2">
+          <div class="md-card">
+            <div class="md-card-toolbar">
+              <div class="md-card-toolbar-actions">
+                <i class="md-icon material-icons md-card-fullscreen-activate">&#xE5D0;</i>
+                <i class="md-icon material-icons md-card-toggle">&#xE316;</i>
+                <i class="md-icon material-icons md-card-close">&#xE5CD;</i>
+              </div>
+              <h3 class="md-card-toolbar-heading-text">Offers</h3>
+            </div>                      
+            <div class="md-card-content">
+              <div class="uk-grid" data-uk-grid-margin>
+                <div class="uk-width-1-1">
+                  <table class="uk-table">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th class="uk-text-right">Weight</th>
+                        <th class="uk-text-right">Offer Price</th>
+                        <th class="uk-text-right">Bid Price</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for b in bids %}
+                      <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ b.offer.fish.name }}</td>
+                        <td class="uk-text-right weight">{{ b.offer.weight }}</td>
+                        <td class="uk-text-right currency">{{ b.offer.total|floatformat:2 }}</td>
+                        <td class="uk-text-right currency">{{ b.bid_price|floatformat:2 }}</td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>                      
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="uk-width-1-2">
+          <div class="md-card">
+            <div class="md-card-toolbar">
+              <div class="md-card-toolbar-actions">
+                <i class="md-icon material-icons md-card-fullscreen-activate">&#xE5D0;</i>
+                <i class="md-icon material-icons md-card-toggle">&#xE316;</i>
+                <i class="md-icon material-icons md-card-close">&#xE5CD;</i>
+              </div>
+              <h3 class="md-card-toolbar-heading-text">Closed Bids</h3>
+            </div>                      
+            <div class="md-card-content">
+              <div class="uk-grid" data-uk-grid-margin>
+                <div class="uk-width-1-1">
+                  <table class="uk-table">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Bidder</th>
+                        <th class="uk-text-right">Weight</th>
+                        <th class="uk-text-right">Bid Price</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for s in success %}
+                      <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ s.offer.fish.name }}</td>
+                        <td>{{ s.bidder.username }}</td>
+                        <td class="uk-text-right weight">{{ s.offer.weight }}</td>
+                        <td class="uk-text-right currency">{{ s.bid_price|floatformat:2 }}</td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>                      
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  {% endblock %}
+
+  {% block js %}
+  <!-- peity (small charts) -->
+  <script src="/static/admin/bower_components/peity/jquery.peity.min.js"></script>
+  <script src="/static/admin/assets/js/pages/dashboard.min.js"></script>
+  <script src="/static/admin/assets/js/jquery.formatCurrency.min.js"></script>
+  <script type="text/javascript">
+      $('.currency').formatCurrency({symbol: 'RM '});
+      $('.weight').formatCurrency({symbol: ''});
+  </script>
+  {% endblock %}  

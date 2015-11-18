@@ -8,6 +8,8 @@
 -export ([save/1]).
 -export ([update/1]).
 -export ([get_all/1]).
+-export ([get_sales_for_bids/0]).
+-export ([get_successful_bids/0]).
 -export ([get_by_user/2]).
 -export ([get_counts_by_offer/1]).
 -export ([get_by_offer/2]).
@@ -66,6 +68,20 @@ update(Bid) ->
 get_all(Sanitize) ->
     {ok, Bids} = mongo_worker:match(?DB_BIDS, {}, {<<"sum_total">>, 1}),
     transform(Bids, Sanitize).
+
+-spec get_sales_for_bids() -> float().
+get_sales_for_bids() ->
+    {ok, Bids} = mongo_worker:find(?DB_BIDS, {<<"status">>, <<"successful">>}),
+    F = fun(B, Accu) ->
+            Sale = maps:get(<<"bid_price">>, B),
+            Accu + Sale
+        end,
+    lists:foldr(F, 0, Bids).
+
+-spec get_successful_bids() -> list().
+get_successful_bids() ->
+    {ok, Bids} = mongo_worker:find(?DB_BIDS, {<<"status">>, <<"successful">>}),
+    Bids.
 
 -spec get_by_user(UserId::binary(), Sanitize::boolean()) -> list().
 get_by_user(UserId, Sanitize) ->

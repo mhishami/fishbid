@@ -8,6 +8,7 @@
 -export ([deactivate/2]).
 -export ([activate/2]).
 -export ([get_all/0]).
+-export ([get_users_count/0]).
 -export ([get_by_id/1]).
 -export ([get_by_username/1]).
 -export ([authenticate/2]).
@@ -83,6 +84,11 @@ activate(UserId, Who) ->
 get_all() ->
     {ok, Users} = mongo_worker:match(?DB_USERS, {<<"status">>, {<<"$ne">>, <<"inactive">>}}, {<<"username">>, 1}),
     Users.
+
+-spec get_users_count() -> integer().
+get_users_count() ->
+    {ok, Count} = mongo_worker:count(?DB_USERS, {}),
+    Count.
 
 -spec get_by_id(Id::binary()) -> map().
 get_by_id(Id) ->

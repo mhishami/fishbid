@@ -8,6 +8,7 @@
 -export ([save/1]).
 -export ([update/1]).
 -export ([get_all/0]).
+-export ([get_all_completed_count/0]).
 -export ([get_all_sans_mine/1]).
 -export ([get_all_with_bids_count/0]).
 -export ([get_by_id/2]).
@@ -50,6 +51,10 @@ get_all() ->
             T#{<<"created_at">> => calendar:now_to_local_time(CA)}
         end,
     lists:map(F, Offers).
+
+get_all_completed_count() ->
+    {ok, Count} = mongo_worker:count(?DB_OFFERS, {<<"status">>, <<"closed">>}),
+    Count.
 
 -spec get_all_sans_mine(Me::map()) -> list().
 get_all_sans_mine(Me) ->
