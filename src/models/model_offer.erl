@@ -55,8 +55,9 @@ get_all() ->
 get_all_sans_mine(Me) ->
     MyId = maps:get(<<"_id">>, Me),
     {ok, Offers} = mongo_worker:find(?DB_OFFERS, 
-                        {<<"status">>, {<<"$eq">>, <<"open">>},
-                        {<<"seller._id">>, {<<"$ne">>, MyId}}}),
+                        #{<<"status">> => {<<"$eq">>, <<"open">>},
+                          <<"seller._id">> => {<<"$ne">>, MyId}
+                        }),
     F = fun(T) ->
             CA = maps:get(<<"created_at">>, T),
             T#{<<"created_at">> => calendar:now_to_local_time(CA)}
