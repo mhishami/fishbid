@@ -55,8 +55,10 @@
           {% else %}
           <div class="uk-alert uk-alert-info" data-uk-alert>
             <a href="#" class="uk-alert-close uk-close"></a>
-            <p>There's no offer by others on the market yet.<br/>
-              Note: your offer won't appear here</p>
+            <h3 class="heading_c">
+              There's no offer by others on the market yet.<br/>
+              Note: your offer won't appear here
+            </h3>
           </div>
           {% endif %}
         </div>

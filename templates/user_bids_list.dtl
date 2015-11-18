@@ -56,7 +56,10 @@
             </table>
           </div>
           {% else %}
-          <h4>No such bids yet</h4>
+          <div class="uk-alert uk-alert-info" data-uk-alert>
+            <a href="#" class="uk-alert-close uk-close"></a>
+            <h3 class="heading_c">No bid from you yet</h3>
+          </div>        
           {% endif %}
         </div>
     </div>
