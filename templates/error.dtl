@@ -36,7 +36,7 @@
         The request hit a bump! <br/>
         <h3>{{ error }}</h3>
         {% if details %}
-        <table class="uk-table">
+        <table class="uk-table uk-table-nowrap">
           <tr>
             <th>Key</th>
             <th>Details</th>

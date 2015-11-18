@@ -21,7 +21,7 @@
             </div>
             <div class="md-card-content">
               <div class="uk-overflow-container">
-                <table class="uk-table">
+                <table class="uk-table uk-table-nowrap">
                   <thead>
                     <tr>
                       <th>#</th>
@@ -57,7 +57,7 @@
               <h3 class="md-card-toolbar-heading-text">Grade B</h3>
             </div>
             <div class="md-card-content">
-              <table class="uk-table">
+              <table class="uk-table uk-table-nowrap">
                 <thead>
                   <tr>
                     <th>#</th>
@@ -92,7 +92,7 @@
               <h3 class="md-card-toolbar-heading-text">Grade C</h3>
             </div>
             <div class="md-card-content">
-              <table class="uk-table">
+              <table class="uk-table uk-table-nowrap">
                 <thead>
                   <tr>
                     <th>#</th>

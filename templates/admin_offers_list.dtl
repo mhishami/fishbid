@@ -19,7 +19,7 @@
         </div>                
         <div class="md-card-content">
           <div class="uk-overflow-container">
-            <table class="uk-table">
+            <table class="uk-table uk-table-nowrap">
               <thead>
                 <tr>
                   <th>#</th>

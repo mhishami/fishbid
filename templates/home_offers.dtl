@@ -19,7 +19,7 @@
         <div class="md-card-content">
           {% if offers %}      
           <div class="uk-overflow-container">
-            <table class="uk-table">
+            <table class="uk-table uk-table-nowrap">
               <thead>
                 <tr>
                   <th class="uk-text-nowrap">#</th>
