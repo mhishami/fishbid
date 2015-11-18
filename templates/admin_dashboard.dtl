@@ -45,7 +45,7 @@
       </div>
 
       <div class="uk-grid"  data-uk-grid-margin>
-        <div class="uk-width-1-2">
+        <div class="uk-width-medium-1-2 uk-width-large-1-1">
           <div class="md-card">
             <div class="md-card-toolbar">
               <div class="md-card-toolbar-actions">
@@ -88,7 +88,7 @@
           </div>
         </div>
 
-        <div class="uk-width-1-2">
+        <div class="uk-width-medium-1-2 uk-width-large-1-1">
           <div class="md-card">
             <div class="md-card-toolbar">
               <div class="md-card-toolbar-actions">
