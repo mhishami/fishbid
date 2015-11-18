@@ -1,0 +1,32 @@
+{% extends "base.dtl" %}
+
+{% block content %}
+  <div id="page_content">
+    <div id="page_content_inner">
+        <div class="uk-width-medium-8-10 uk-container-center reset-print">
+          <div class="uk-grid uk-grid-collapse" data-uk-grid-margin>
+            <div class="uk-width-large-7-10">
+              <div class="md-card md-card-single main-print" id="invoice">
+                <div id="invoice_preview"></div>
+                <div id="invoice_form"></div>
+              </div>
+            </div>
+            <div class="uk-width-large-3-10 hidden-print uk-visible-large">
+              <div class="md-list-outside-wrapper">
+                <ul class="md-list md-list-outside invoices_list" id="invoices_list">
+                  <li class="heading_list">October 2015</li>
+                  <li>
+                    <a href="#" class="md-list-content" data-invoice-id="1">
+                      <span class="md-list-heading uk-text-truncate">Invoice 197/2015 <span class="uk-text-small uk-text-muted">(20 Oct)</span></span>
+                      <span class="uk-text-small uk-text-muted">Mann PLC</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>        
+      </div>
+    </div>
+  </div>
+{% endblock %}

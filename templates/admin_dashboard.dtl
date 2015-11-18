@@ -58,6 +58,7 @@
             <div class="md-card-content">
               <div class="uk-grid" data-uk-grid-margin>
                 <div class="uk-width-1-1">
+                  {% if bids %}
                   <table class="uk-table">
                     <thead>
                       <tr>
@@ -79,7 +80,10 @@
                       </tr>
                       {% endfor %}
                     </tbody>
-                  </table>                      
+                  </table>                 
+                  {% else %}
+                  <h3 class="heading_b">No bids available yet</h3>
+                  {% endif %}                  
                 </div>
               </div>
             </div>
@@ -99,6 +103,7 @@
             <div class="md-card-content">
               <div class="uk-grid" data-uk-grid-margin>
                 <div class="uk-width-1-1">
+                  {% if success %}
                   <table class="uk-table">
                     <thead>
                       <tr>
@@ -120,7 +125,10 @@
                       </tr>
                       {% endfor %}
                     </tbody>
-                  </table>                      
+                  </table>         
+                  {% else %}
+                  <h3 class="heading_b">No closed bids yet</h3>
+                  {% endif %}             
                 </div>
               </div>
             </div>
