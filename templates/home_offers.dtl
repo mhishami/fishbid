@@ -14,7 +14,7 @@
             <i class="md-icon material-icons md-card-toggle">&#xE316;</i>
             <i class="md-icon material-icons md-card-close">&#xE5CD;</i>
           </div>
-          <h3 class="md-card-toolbar-heading-text">Market Offers</h3>
+          <h3 class="md-card-toolbar-heading-text">Market Offers by Others</h3>
         </div>                
         <div class="md-card-content">
           {% if offers %}      
@@ -24,6 +24,7 @@
                 <tr>
                   <th class="uk-text-nowrap">#</th>
                   <th class="uk-text-nowrap">Fish</th>
+                  <th class="uk-text-nowrap">Seller</th>
                   <th class="uk-text-nowrap uk-text-right">Weight (kg)</th>
                   <th class="uk-text-nowrap uk-text-right">Unit Price</th>
                   <th class="uk-text-nowrap uk-text-right">Total Price</th>
@@ -37,6 +38,7 @@
                 <tr>
                   <td>{{ forloop.counter }}</td>
                   <td>{{ o.fish.name }}</td>
+                  <td>{{ o.seller.username }}</td>
                   <td class="weight uk-text-right">{{ o.weight|floatformat:2 }}</td>
                   <td class="currency uk-text-right">{{ o.price|floatformat:2 }}</td>
                   <td class="currency uk-text-right">{{ o.total|floatformat:2 }}</td>
@@ -53,7 +55,8 @@
           {% else %}
           <div class="uk-alert uk-alert-info" data-uk-alert>
             <a href="#" class="uk-alert-close uk-close"></a>
-            <p>There's no offer on the market yet.</p>
+            <p>There's no offer by others on the market yet.<br/>
+              Note: your offer won't appear here</p>
           </div>
           {% endif %}
         </div>

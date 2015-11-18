@@ -8,6 +8,7 @@
 -export ([save/1]).
 -export ([update/1]).
 -export ([get_all/0]).
+-export ([get_all_sans_mine/1]).
 -export ([get_all_with_bids_count/0]).
 -export ([get_by_id/2]).
 -export ([get_by_user/1]).
@@ -44,6 +45,18 @@ update(Offer) ->
 -spec get_all() -> list().
 get_all() ->
     {ok, Offers} = mongo_worker:find(?DB_OFFERS, {<<"status">>, {<<"$eq">>, <<"open">>}}),
+    F = fun(T) ->
+            CA = maps:get(<<"created_at">>, T),
+            T#{<<"created_at">> => calendar:now_to_local_time(CA)}
+        end,
+    lists:map(F, Offers).
+
+-spec get_all_sans_mine(Me::map()) -> list().
+get_all_sans_mine(Me) ->
+    MyId = maps:get(<<"_id">>, Me),
+    {ok, Offers} = mongo_worker:find(?DB_OFFERS, 
+                        {<<"status">>, {<<"$eq">>, <<"open">>},
+                        {<<"seller._id">>, {<<"$ne">>, MyId}}}),
     F = fun(T) ->
             CA = maps:get(<<"created_at">>, T),
             T#{<<"created_at">> => calendar:now_to_local_time(CA)}

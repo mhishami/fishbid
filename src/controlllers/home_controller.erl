@@ -26,7 +26,7 @@ handle_request(<<"GET">>, <<"prices">>, _Args, Params, _Req) ->
 
 handle_request(<<"GET">>, <<"offers">>, _Args, Params, _Req) ->
     User = maps:get(<<"auth">>, Params),
-    {render, <<"home_offers">>, [{user, User}, {offers, model_offer:get_all()}]};
+    {render, <<"home_offers">>, [{user, User}, {offers, model_offer:get_all_sans_mine(User)}]};
 
 handle_request(Method, Action, Args, Params, Req) ->
     {render, <<"error">>, [
