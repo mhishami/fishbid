@@ -104,7 +104,7 @@
               <a href="#" class="user_action_image"><img class="md-user-image" src="/static/admin/assets/img/avatars/user.png" alt=""/></a>
               <div class="uk-dropdown uk-dropdown-small uk-dropdown-flip">
                 <ul class="uk-nav js-uk-prevent">
-                  <li><a href="/settings/profile">My profile</a></li>
+                  <li><a href="/user/edit">My profile</a></li>
                   <li><a href="/auth/logout">Logout</a></li>
                 </ul>
               </div>

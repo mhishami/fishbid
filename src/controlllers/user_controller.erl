@@ -16,6 +16,9 @@ before_filter(SessionId) ->
             {ok, proceed}
     end.
 
+%% ======================================================================================
+%% Offers Handling
+%% ======================================================================================
 handle_request(<<"GET">>, <<"offers">>, [], Params, _Req) ->
     User = maps:get(<<"auth">>, Params),
     Fishes = model_fish:get_for_select(),
@@ -34,6 +37,9 @@ handle_request(<<"POST">>, <<"offers">>, [], Params, _Req) ->
 
     {redirect, <<"/user/offers">>};
 
+%% ======================================================================================
+%% Bids Handling
+%% ======================================================================================
 handle_request(<<"GET">>, <<"bids">>, [OfferId], Params, _Req) ->
     ?DEBUG("OfferId= ~p", [OfferId]),
     User = maps:get(<<"auth">>, Params),
@@ -66,6 +72,17 @@ handle_request(<<"GET">>, <<"bids">>, [], Params, _Req) ->
     Bids = model_bid:get_by_user(maps:get(<<"_id">>, User), true),
     {render, <<"user_bids_list">>, [{user, User}, {bids, Bids}]};
 
+%% ======================================================================================
+%% Profile Handling
+%% ======================================================================================
+handle_request(<<"GET">>, <<"edit">>, [], Params, _Req) ->
+    User = maps:get(<<"auth">>, Params),
+    Person = model_user:get_by_id(maps:get(<<"_id">>, User)),
+    {render, <<"user_edit">>, [{user, User}, {person, Person}]};
+
+%% ======================================================================================
+%% Catch All Handling
+%% ======================================================================================
 handle_request(Method, Action, Args, Params, Req) ->
     {render, <<"error">>, [
         {error, <<"Method not implemented">>},
