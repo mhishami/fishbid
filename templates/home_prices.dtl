@@ -20,26 +20,28 @@
               <h3 class="md-card-toolbar-heading-text">Grade A</h3>
             </div>
             <div class="md-card-content">
-              <table class="uk-table">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>Price</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for f in grade_a %}
-                  <tr>
-                    <td>{{ forloop.counter }}</td>
-                    <td>{{ f.name }}</td>
-                    <td class="currency">{{ f.price }}</td>
-                  </tr>
-                  {% empty %}
-                  <p>No fish of Grade A added yet</p>              
-                  {% endfor %}
-                </tbody>
-              </table>
+              <div class="uk-overflow-container">
+                <table class="uk-table">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Name</th>
+                      <th>Price</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for f in grade_a %}
+                    <tr>
+                      <td>{{ forloop.counter }}</td>
+                      <td>{{ f.name }}</td>
+                      <td class="currency">{{ f.price }}</td>
+                    </tr>
+                    {% empty %}
+                    <p>No fish of Grade A added yet</p>              
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>

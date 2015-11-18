@@ -51,43 +51,43 @@
           </div>
         </div>
         <div class="uk-width-medium-1-4">
-            <div class="md-card">
-                <div class="md-card-content">
-                    <h3 class="heading_a">Offer</h3>
-                    <ul class="md-list">
-                        <li>
-                            <div class="md-list-content">
-                                <span class="md-list-heading">Seller</span>
-                                <span class="uk-text-small uk-text-muted currency">{{ offer.seller.username }}</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="md-list-content">
-                                <span class="md-list-heading">Fish</span>
-                                <span class="uk-text-small uk-text-muted">{{ offer.fish.name }}</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="md-list-content">
-                                <span class="md-list-heading">Unit Price</span>
-                                <span class="uk-text-small uk-text-muted currency">{{ offer.price|floatformat:2 }}</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="md-list-content">
-                                <span class="md-list-heading">Floor Price</span>
-                                <span class="uk-text-small uk-text-muted currency" style="font-size: 20pt;">{{ offer.total|floatformat:2 }}</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="md-list-content">
-                                <span class="md-list-heading">Charges</span>
-                                <span class="uk-text-small uk-text-muted" style="font-size: 20pt;">4% of Bid Price</span>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+          <div class="md-card">
+            <div class="md-card-content">
+              <h3 class="heading_a">Offer</h3>
+              <ul class="md-list">
+                <li>
+                  <div class="md-list-content">
+                    <span class="md-list-heading">Seller</span>
+                    <span class="uk-text-small uk-text-muted currency">{{ offer.seller.username }}</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="md-list-content">
+                    <span class="md-list-heading">Fish</span>
+                    <span class="uk-text-small uk-text-muted">{{ offer.fish.name }}</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="md-list-content">
+                    <span class="md-list-heading">Unit Price</span>
+                    <span class="uk-text-small uk-text-muted currency">{{ offer.price|floatformat:2 }}</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="md-list-content">
+                    <span class="md-list-heading">Floor Price</span>
+                    <span class="uk-text-small uk-text-muted currency" style="font-size: 20pt;">{{ offer.total|floatformat:2 }}</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="md-list-content">
+                    <span class="md-list-heading">Charges</span>
+                    <span class="uk-text-small uk-text-muted" style="font-size: 20pt;">4% of Bid Price</span>
+                  </div>
+                </li>
+              </ul>
             </div>
+          </div>
         </div>
       </div>
 
