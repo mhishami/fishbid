@@ -229,7 +229,10 @@ handle_request(<<"GET">>, <<"dashboard">>, [], Params, _Req) ->
 %% ======================================================================================
 handle_request(<<"GET">>, <<"invoices">>, [], Params, _Req) ->
     User = maps:get(<<"auth">>, Params),
-    {render, <<"admin_invoices">>, [{user, User}]};
+    {render, <<"admin_invoices">>, [
+        {user, User},
+        {bids, model_bid:get_successful_bids()}
+    ]};
 
 %% ======================================================================================
 %% Catch All Handling

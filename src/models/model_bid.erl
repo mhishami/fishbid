@@ -10,6 +10,7 @@
 -export ([get_all/1]).
 -export ([get_sales_for_bids/0]).
 -export ([get_successful_bids/0]).
+-export ([get_successful_bids_by_month/0]).
 -export ([get_by_user/2]).
 -export ([get_counts_by_offer/1]).
 -export ([get_by_offer/2]).
@@ -71,16 +72,28 @@ get_all(Sanitize) ->
 
 -spec get_sales_for_bids() -> float().
 get_sales_for_bids() ->
-    {ok, Bids} = mongo_worker:find(?DB_BIDS, {<<"status">>, <<"successful">>}),
-    F = fun(B, Accu) ->
-            Sale = maps:get(<<"bid_price">>, B),
-            Accu + Sale
-        end,
-    lists:foldr(F, 0, Bids).
+    {ok, [Sum]} = mongo_worker:match_group(?DB_BIDS, {<<"status">>, {<<"$eq">>, <<"successful">>}},
+                                                    {<<"_id">>, undefined, 
+                                                     <<"bid_price">>, {<<"$sum">>, <<"$bid_price">>}}),
+    maps:get(<<"bid_price">>, Sum).
+    % {ok, Bids} = mongo_worker:find(?DB_BIDS, {<<"status">>, <<"successful">>}),
+    % F = fun(B, Accu) ->
+    %         Sale = maps:get(<<"bid_price">>, B),
+    %         Accu + Sale
+    %     end,
+    % lists:foldr(F, 0, Bids).
 
 -spec get_successful_bids() -> list().
 get_successful_bids() ->
     {ok, Bids} = mongo_worker:find(?DB_BIDS, {<<"status">>, <<"successful">>}),
+    transform(Bids, true).
+
+get_successful_bids_by_month() ->
+    %% { $group: { _id: <expression>, <field1>: { <accumulator1> : <expression1> }, ... }
+    %% <accumulator> = $sum, $avg, $first, $last, $max, $min, $push, $addToSet
+    {ok, Bids} = mongo_worker:match_group(?DB_BIDS, {<<"status">>, {<<"$eq">>, <<"successful">>}},
+                                                    {<<"_id">>, <<"$month">>, 
+                                                     <<"bid_price">>, {<<"$sum">>, <<"$bid_price">>}}),
     Bids.
 
 -spec get_by_user(UserId::binary(), Sanitize::boolean()) -> list().
@@ -145,8 +158,10 @@ transform(List, Sanitize) ->
     case Sanitize of
         true ->
             F = fun(T) ->
-                    CA = maps:get(<<"created_at">>, T),
-                    T#{<<"created_at">> => calendar:now_to_local_time(CA)}
+                    T#{
+                        <<"created_at">> => calendar:now_to_local_time(maps:get(<<"created_at">>, T)),
+                        <<"updated_at">> => calendar:now_to_local_time(maps:get(<<"updated_at">>, T))
+                    }
                 end,
             lists:map(F, List);
         _ ->
